@@ -19,7 +19,7 @@ http://localhost:3000/user-lookup
 
 
 ### API Usage
-http://localhost:3000/search_${x}?username={y}
+http://localhost:3000/search_{x}?username={y}
 
 Where __x__ is the service you want to use, and __y__ is the username you want to search. For example http://localhost:3000/search_youtube?username=stringmanolo
 
