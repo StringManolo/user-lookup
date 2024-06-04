@@ -32,6 +32,17 @@ app.get("/search_instagram", (req, res) => {
   });
 });
 
+app.get("/search_pinterest", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://www.pinterest.com/${username}`).then((response) => {
+    return response.text();
+  })
+  .then((response) => {
+    new RegExp(`user not found`, "gi").test(response) ? res.send("false") : res.send("true");
+  });
+
+});
+
 app.get("/search_pornhub", (req, res) => {
   const username = req.query.username;
   fetch(`https://www.pornhub.com/users/${username}`).then((response) => {
