@@ -5,6 +5,16 @@ const app = express();
 const port = 3000;
 
 
+app.get("/search_ebay", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://www.ebay.com/usr/${username}`).then((response) => {
+    return response.text();
+  })
+  .then((response) => {
+    new RegExp("this user was not found", "gi").test(response) ? res.send("false") : res.send("true")
+  });
+});
+
 app.get("/search_instagram", (req, res) => {
   const username = req.query.username;
   fetch(`https://www.instagram.com/${username}`).then((response) => {
