@@ -15,6 +15,13 @@ app.get("/search_ebay", (req, res) => {
   });
 });
 
+app.get("/search_github", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://github.com/${username}`).then((response) => {
+    response.status == 200 ? res.send("true") : res.send("false");
+  });
+});
+
 app.get("/search_instagram", (req, res) => {
   const username = req.query.username;
   fetch(`https://www.instagram.com/${username}`).then((response) => {
@@ -25,6 +32,16 @@ app.get("/search_instagram", (req, res) => {
   });
 });
 
+
+app.get("/search_reddit", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://www.reddit.com/user/${username}`).then((response) => {
+    return response.text();
+  })
+  .then((response) => {
+    new RegExp(`Sorry, nobody on Reddit goes by that name.`, "gi").test(response) ? res.send("false") : res.send("true");
+  });
+});
 
 app.get("/search_tiktok", (req, res) => {
   const username = req.query.username;
