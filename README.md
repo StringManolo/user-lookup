@@ -29,6 +29,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - Ebay
 - Github
 - Instagram
+- Pornhub
 - Reddit
 - TikTok
 - Twitter (not yet)
