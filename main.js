@@ -67,6 +67,13 @@ app.get("/search_snapchat", (req, res) => {
   });
 });
 
+app.get("/search_spotify", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://open.spotify.com/user/${username}`).then((response) => {
+    response.status == 200 ? res.send("true") : res.send("false");
+  });
+});
+
 app.get("/search_telegram", (req, res) => {
   const username = req.query.username;
   fetch(`https://t.me/${username}`).then((response) => {
