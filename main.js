@@ -49,6 +49,13 @@ app.get("/search_reddit", (req, res) => {
   });
 });
 
+app.get("/search_snapchat", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://www.snapchat.com/add/${username}`).then((response) => {
+    response.status == 200 ? res.send("true") : res.send("false");
+  });
+});
+
 app.get("/search_tiktok", (req, res) => {
   const username = req.query.username;
   fetch(`https://www.tiktok.com/@${username}`).then((response) => {
