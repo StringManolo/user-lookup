@@ -19,9 +19,9 @@ http://localhost:3000/user-lookup
 
 
 ### API Usage
-http://localhost:3000/search_${service_xxx}?username={yyy}
+http://localhost:3000/search_${x}?username={y}
 
-Where xxx is the service you want to use, and yyy is the username you want to search. For example http://localhost:3000/search_youtube?username=stringmanolo
+Where __x__ is the service you want to use, and __y__ is the username you want to search. For example http://localhost:3000/search_youtube?username=stringmanolo
 
 * Api returns true when the account exists in the service, and false when it doesn't
 
