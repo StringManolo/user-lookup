@@ -4,6 +4,12 @@ const fetch = require("node-fetch");
 const app = express();
 const port = 3000;
 
+app.get("/search_aboutme", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://about.me/${username}`).then((response) => {
+    response.status == 200 ? res.send("true") : res.send("false");
+  });
+});
 
 app.get("/search_ebay", (req, res) => {
   const username = req.query.username;
