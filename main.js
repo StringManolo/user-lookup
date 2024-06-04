@@ -67,6 +67,16 @@ app.get("/search_snapchat", (req, res) => {
   });
 });
 
+app.get("/search_telegram", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://t.me/${username}`).then((response) => {
+    return response.text();
+  })
+  .then((response) => {
+    new RegExp(`https://telegram.org/img/t_logo.png`, "gi").test(response) ? res.send("false") : res.send("true");
+  });
+});
+
 app.get("/search_tiktok", (req, res) => {
   const username = req.query.username;
   fetch(`https://www.tiktok.com/@${username}`).then((response) => {
