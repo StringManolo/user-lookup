@@ -34,6 +34,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - TikTok
 - Twitter (not yet)
 - Wikipedia
+- XVideos
 - Youtube
 
 * Services may become unavailable at any time if breaking changes are made by the developers of the target service. 

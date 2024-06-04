@@ -84,6 +84,13 @@ app.get("/search_wikipedia", (req, res) => {
   });
 });
 
+app.get("/search_xvideos", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://www.xvideos.com/profiles/${username}`).then((response) => {
+    response.status == 200 ? res.send("true") : res.send("false");
+  });
+});
+
 app.get("/search_youtube", (req, res) => {
   const username = req.query.username;
   fetch(`https://www.youtube.com/@${username}`).then((response) => {
