@@ -104,57 +104,60 @@ app.get("/search", async (req, res) => {
     fetch(`${host}/search_boardgamegeek?username=${username}`).then((response) => boardgamegeek = response.text()),
 
     //5
-    fetch(`${host}/search_discussionsapple?username=${username}`).then((response) => discussionsapple = response.text()),
+    fetch(`${host}/search_cnn?username=${username}`).then((response) => cnn = response.text()),
 
     //6
-    fetch(`${host}/search_ebay?username=${username}`).then((response) => facebook = response.text()),
+    fetch(`${host}/search_discussions_apple?username=${username}`).then((response) => discussionsapple = response.text()),
 
     //7
-    fetch(`${host}/search_github?username=${username}`).then((response) => instagram = response.text()),
+    fetch(`${host}/search_ebay?username=${username}`).then((response) => facebook = response.text()),
 
     //8
-    fetch(`${host}/search_imdb?username=${username}`).then((response) => reddit = response.text()),
+    fetch(`${host}/search_github?username=${username}`).then((response) => instagram = response.text()),
 
     //9
-    fetch(`${host}/search_instagram?username=${username}`).then((response) => instagram = response.text()),
+    fetch(`${host}/search_imdb?username=${username}`).then((response) => reddit = response.text()),
 
     //10
-    fetch(`${host}/search_pinterest?username=${username}`).then((response) => pinterest = response.text()),
+    fetch(`${host}/search_instagram?username=${username}`).then((response) => instagram = response.text()),
 
     //11
-    fetch(`${host}/search_pornhub?username=${username}`).then((response) => pornhub = response.text()),
+    fetch(`${host}/search_pinterest?username=${username}`).then((response) => pinterest = response.text()),
 
     //12
-    fetch(`${host}/search_reddit?username=${username}`).then((response) => reddit = response.text()),
+    fetch(`${host}/search_pornhub?username=${username}`).then((response) => pornhub = response.text()),
 
     //13
-    fetch(`${host}/search_snapchat?username=${username}`).then((response) => snapchat = response.text()),
+    fetch(`${host}/search_reddit?username=${username}`).then((response) => reddit = response.text()),
 
     //14
-    fetch(`${host}/search_spotify?username=${username}`).then((response) => spotify = response.text()),
+    fetch(`${host}/search_snapchat?username=${username}`).then((response) => snapchat = response.text()),
 
     //15
-    fetch(`${host}/search_telegram?username=${username}`).then((response) => telegram = response.text()),
+    fetch(`${host}/search_spotify?username=${username}`).then((response) => spotify = response.text()),
 
     //16
-    fetch(`${host}/search_tiktok?username=${username}`).then((response) => tiktok = response.text()),
+    fetch(`${host}/search_telegram?username=${username}`).then((response) => telegram = response.text()),
 
     //17
-    fetch(`${host}/search_twitch?username=${username}`).then((response) => twitch = response.text()),
+    fetch(`${host}/search_tiktok?username=${username}`).then((response) => tiktok = response.text()),
 
     //18
-    fetch(`${host}/search_twitter?username=${username}`).then((response) => twitter = response.text()),
+    fetch(`${host}/search_twitch?username=${username}`).then((response) => twitch = response.text()),
 
     //19
-    fetch(`${host}/search_vimeo?username=${username}`).then((response) => vimeo = response.text()),
+    fetch(`${host}/search_twitter?username=${username}`).then((response) => twitter = response.text()),
 
     //20
-    fetch(`${host}/search_wikipedia?username=${username}`).then((response) => wikipedia = response.text()),
+    fetch(`${host}/search_vimeo?username=${username}`).then((response) => vimeo = response.text()),
 
     //21
-    fetch(`${host}/search_xvideos?username=${username}`).then((response) => xvideos = response.text()),
+    fetch(`${host}/search_wikipedia?username=${username}`).then((response) => wikipedia = response.text()),
 
     //22
+    fetch(`${host}/search_xvideos?username=${username}`).then((response) => xvideos = response.text()),
+
+    //23
     fetch(`${host}/search_youtube?username=${username}`).then((response) => youtube = response.text())
   ];
 
@@ -178,57 +181,60 @@ app.get("/search", async (req, res) => {
       sites.push(`<a href="https://boardgamegeek.com/user/${username}">boardgamegeek.com</a>`);
     }
     if (values[5] == "true") {
-      sites.push(`<a href="https://discussions.apple.com/member/${username}">discussions.apple.com</a>`);
+      sites.push(`<a href="https://edition.cnn.com/profiles/${username}">cnn.com</a>`);
     }
     if (values[6] == "true") {
-      sites.push(`<a href="https://www.ebay.com/usr/${username}">ebay.com</a>`);
+      sites.push(`<a href="https://discussions.apple.com/profile/${username}">discussions.apple.com</a>`);
     }
     if (values[7] == "true") {
-      sites.push(`<a href="https://github.com/${username}">github.com</a>`);
+      sites.push(`<a href="https://www.ebay.com/usr/${username}">ebay.com</a>`);
     }
     if (values[8] == "true") {
-      sites.push(`<a href="https://www.imdb.com/user/${username}">imdb.com</a>`);
+      sites.push(`<a href="https://github.com/${username}">github.com</a>`);
     }
     if (values[9] == "true") {
-      sites.push(`<a href="https://www.instagram.com/${username}">instagram.com</a>`);
+      sites.push(`<a href="https://www.imdb.com/user/${username}">imdb.com</a>`);
     }
     if (values[10] == "true") {
-      sites.push(`<a href="https://www.pinterest.com/${username}">pinterest.com</a>`);
+      sites.push(`<a href="https://www.instagram.com/${username}">instagram.com</a>`);
     }
     if (values[11] == "true") {
-      sites.push(`<a href="https://www.pornhub.com/users/${username}">pornhub.com</a>`);
+      sites.push(`<a href="https://www.pinterest.com/${username}">pinterest.com</a>`);
     }
     if (values[12] == "true") {
-      sites.push(`<a href="https://www.reddit.com/user/${username}">reddit.com</a>`);
+      sites.push(`<a href="https://www.pornhub.com/users/${username}">pornhub.com</a>`);
     }
     if (values[13] == "true") {
-      sites.push(`<a href="https://www.snapchat.com/add/${username}">snapchat.com</a>`);
+      sites.push(`<a href="https://www.reddit.com/user/${username}">reddit.com</a>`);
     }
     if (values[14] == "true") {
-      sites.push(`<a href="https://open.spotify.com/user/${username}">spotify.com</a>`);
+      sites.push(`<a href="https://www.snapchat.com/add/${username}">snapchat.com</a>`);
     }
     if (values[15] == "true") {
-      sites.push(`<a href="https://t.me/${username}">t.me</a>`);
+      sites.push(`<a href="https://open.spotify.com/user/${username}">spotify.com</a>`);
     }
     if (values[16] == "true") {
-      sites.push(`<a href="https://www.tiktok.com/@${username}">tiktok.com</a>`);
+      sites.push(`<a href="https://t.me/${username}">t.me</a>`);
     }
     if (values[17] == "true") {
-      sites.push(`<a href="https://www.twitch.tv/${username}">twitch.tv</a>`);
+      sites.push(`<a href="https://www.tiktok.com/@${username}">tiktok.com</a>`);
     }
     if (values[18] == "true") {
-      sites.push(`<a href="https://twitter.com/${username}">twitter.com</a>`);
+      sites.push(`<a href="https://www.twitch.tv/${username}">twitch.tv</a>`);
     }
     if (values[19] == "true") {
-      sites.push(`<a href="https://www.vimeo.com/${username}">vimeo.com</a>`);
+      sites.push(`<a href="https://twitter.com/${username}">twitter.com</a>`);
     }
     if (values[20] == "true") {
-      sites.push(`<a href="https://www.wikipedia.org/wiki/User:${username}">wikipedia.org</a>`);
+      sites.push(`<a href="https://www.vimeo.com/${username}">vimeo.com</a>`);
     }
     if (values[21] == "true") {
-      sites.push(`<a href="https://xvideos.com/profiles/${username}">xvideos.com</a>`);
+      sites.push(`<a href="https://www.wikipedia.org/wiki/User:${username}">wikipedia.org</a>`);
     }
     if (values[22] == "true") {
+      sites.push(`<a href="https://xvideos.com/profiles/${username}">xvideos.com</a>`);
+    }
+    if (values[23] == "true") {
       sites.push(`<a href="https://www.youtube.com/user/${username}">youtube.com</a>`);
     }
 
@@ -314,10 +320,20 @@ app.get("/search_boardgamegeek", (req, res) => {
   });
 });
 
+app.get("/search_cnn", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://edition.cnn.com/profiles/${username}`).then((response) => {
+    response.status == 200 ? res.send("true") : res.send("false");
+  });
+});
+
 app.get("/search_discussions_apple", (req, res) => {
   const username = req.query.username;
   fetch(`https://discussions.apple.com/profile/${username}`).then((response) => {
-    response.status == 200 ? res.send("true") : res.send("false");
+    return response.text();
+  })
+  .then((response) => {
+    new RegExp("user-profile-name", "gi").test(response) ? res.send("true") : res.send("false");
   });
 });
 
@@ -327,7 +343,7 @@ app.get("/search_ebay", (req, res) => {
     return response.text();
   })
   .then((response) => {
-    new RegExp("this user was not found", "gi").test(response) ? res.send("false") : res.send("true")
+    new RegExp("Member since", "gi").test(response) ? res.send("true") : res.send("false");
   });
 });
 
@@ -426,7 +442,7 @@ app.get("/search_twitch", (req, res) => {
     return response.text();
   })
   .then((response) => {
-    new RegExp(`Sorry, that page is in another castle`, "gi").test(response) ? res.send("false") : res.send("true");
+    new RegExp(`profile_image`, "gi").test(response) ? res.send("true") : res.send("false");
   });
 });
 

@@ -6,4 +6,4 @@
 - Moduralize endpoints in a json file
 - Proyect port to Bash (and/or cli bash version)
 - Add Dowload button for results
-- 
+- Add Manual Check Button where it opens all links in new tabs
