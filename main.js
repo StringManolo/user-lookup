@@ -14,7 +14,7 @@ app.get("/user-lookup", (req, res) => {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Lookup</title>
-    <link rel="icon" href="data:image/png;base64,iVBORw0KGgo="> <!-- Favicon nulo en base64 -->
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgo=">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,6 +24,10 @@ app.get("/user-lookup", (req, res) => {
             justify-content: center;
             align-items: center;
             height: 100vh;
+            -webkit-text-size-adjust: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
 
         .container {
@@ -54,7 +58,7 @@ app.get("/user-lookup", (req, res) => {
         }
 
         input[type="submit"] {
-            background-color: #4CAF50;
+            background-color: #0073e6;;
             color: white;
             padding: 12px 20px;
             border: none;
@@ -64,7 +68,7 @@ app.get("/user-lookup", (req, res) => {
         }
 
         input[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: #0059b3;
         }
     </style>
 </head>
@@ -239,7 +243,7 @@ app.get("/search", async (req, res) => {
     }
 
 
-
+/*
     res.send(`
       <html>
       <head>
@@ -249,6 +253,8 @@ app.get("/search", async (req, res) => {
             margin: 20px;
             padding: 20px;
             background-color: #f4f4f4;
+            -webkit-text-size-adjust: none;
+
           }
           h1 {
             color: #333;
@@ -262,14 +268,172 @@ app.get("/search", async (req, res) => {
           a:hover {
             text-decoration: underline;
           }
+
+          textarea {
+            width: 100%;
+            height: 200px;
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+          }
         </style>
       </head>
       <body>
         <h1>Results for ${username}</h1>
         ${sites.length > 0 ? sites.join("") : "<p>No profiles found.</p>"}
+
+        <textarea placeholder="Results" readonly>${sites.map(site => {
+    const hrefStartIndex = site.indexOf("href=\"") + 6;
+    const hrefEndIndex = site.indexOf("\">");
+    return site.substring(hrefStartIndex, hrefEndIndex);}).join("\n")}</textarea>
       </body>
       </html>
     `);
+*/
+
+
+    res.send(`
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 20px;
+      background-color: #f4f4f4;
+      -webkit-text-size-adjust: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    h1 {
+      color: #333;
+    }
+    a {
+      display: block;
+      margin: 10px 0;
+      color: #0073e6;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    textarea {
+      width: 70%;
+      height: 200px;
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: none;
+    }
+    .button-container {
+      margin-top: 10px;
+    }
+    .format-button {
+      padding: 8px 16px;
+      margin-right: 10px;
+      background-color: #0073e6;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .format-button:hover {
+      background-color: #005aa7;
+    }
+  </style>
+</head>
+<body>
+  <h1>Results for ${username}</h1>
+  ${sites.length > 0 ? sites.join("") : "<p>No profiles found.</p>"}
+  <textarea id="resultsTextarea" placeholder="Results" readonly>${sites.map(site => {
+    const hrefStartIndex = site.indexOf("href=\"") + 6;
+    const hrefEndIndex = site.indexOf("\">");
+    return site.substring(hrefStartIndex, hrefEndIndex);
+  }).join("\n")}</textarea>
+  <div class="button-container">
+    <button class="format-button" onclick="formatDefault()">Default</button>
+    <button class="format-button" onclick="formatCSV()">CSV</button>
+    <button class="format-button" onclick="formatJSON()">JSON</button>
+    <button class="format-button" onclick="formatHTML()">HTML</button>
+    <button class="format-button" onclick="formatMarkdown()">Markdown</button>
+    <button class="format-button" onclick="downloadFile()">Download</button>
+  </div>
+
+  <script>
+    // Guardar el valor original del textarea
+    const originalValue = document.getElementById('resultsTextarea').value;
+
+    function formatDefault() {
+      document.getElementById('resultsTextarea').value = originalValue;
+    }
+
+    function formatCSV() {
+      formatDefault();
+      const textarea = document.getElementById('resultsTextarea');
+      const urls = textarea.value.split('\\n');
+      const formatted = urls.map(url => \`"\${url}"\`).join(',\\n');
+      textarea.value = formatted;
+    }
+
+    function formatJSON() {
+      formatDefault();
+      const textarea = document.getElementById('resultsTextarea');
+      const urls = textarea.value.split('\\n');
+      const json = JSON.stringify(urls, null, 2);
+      textarea.value = json;
+    }
+
+    function formatHTML() {
+      formatDefault();
+      const textarea = document.getElementById('resultsTextarea');
+    
+      const urls = textarea.value.split('\\n').map(url => {
+        const cleanUrl = url.replace('https://', '');
+        const parts = cleanUrl.split('/');
+        const domain = parts.length > 1 ? parts[0] : cleanUrl;
+        return \`<a href="\${url}">\${domain}</a>\`;
+      }).join('\\n');
+      textarea.value = urls;
+    }
+
+    function formatMarkdown() {
+      formatDefault();
+      const textarea = document.getElementById('resultsTextarea');
+    
+      const urls = textarea.value.split('\\n').map(url => {
+        const cleanUrl = url.replace('https://', '');
+        const parts = cleanUrl.split('/');
+        const domain = parts.length > 1 ? parts[0] : cleanUrl;
+        return \`[\${domain}](\${url})\`;
+      }).join('\\n');
+      textarea.value = urls;
+    }
+
+    function downloadFile() {
+      const text = document.getElementById('resultsTextarea').value;
+      const element = document.createElement('a');
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+      element.setAttribute('download', prompt('Enter file name and extension (e.g. elon_musk_accounts.json)'));
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    }
+    
+
+  </script>
+</body>
+</html>
+`);
+
 
     
   } catch (error) {
