@@ -35,6 +35,16 @@ app.get("/search_ao3", (req, res) => {
   });
 });
 
+app.get("/search_boardgamegeek", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://boardgamegeek.com/user/${username}`).then((response) => {
+    return response.text();
+  })
+  .then((response) => {
+    new RegExp(`Error: User does not exist`, "gi").test(response) ? res.send("false") : res.send("true");
+  });
+});
+
 app.get("/search_discussions_apple", (req, res) => {
   const username = req.query.username;
   fetch(`https://discussions.apple.com/profile/${username}`).then((response) => {

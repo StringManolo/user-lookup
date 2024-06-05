@@ -33,6 +33,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - AllRecipes
 - Anime-Planet
 - Ao3
+- BoardGameGeek
 - DiscussionsApple
 - Ebay
 - Github
