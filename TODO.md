@@ -5,4 +5,5 @@
 - Host Standalone Webpage in githubpages pointing to Public Server (and allow user to change server url)
 - Moduralize endpoints in a json file
 - Proyect port to Bash (and/or cli bash version)
-
+- Add Dowload button for results
+- 
