@@ -11,6 +11,13 @@ app.get("/search_aboutme", (req, res) => {
   });
 });
 
+app.get("/search_allrecipes", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://www.allrecipes.com/cook/${username}/`).then((response) => {
+    response.status == 200 ? res.send("true") : res.send("false");
+  });
+});
+
 app.get("/search_ebay", (req, res) => {
   const username = req.query.username;
   fetch(`https://www.ebay.com/usr/${username}`).then((response) => {
