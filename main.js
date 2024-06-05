@@ -28,6 +28,13 @@ app.get("/search_anime-planet", (req, res) => {
   });
 });
 
+app.get("/search_ao3", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://archiveofourown.org/users/${username}/works`).then((response) => {
+    response.status == 200 ? res.send("true") : res.send("false");
+  });
+});
+
 app.get("/search_ebay", (req, res) => {
   const username = req.query.username;
   fetch(`https://www.ebay.com/usr/${username}`).then((response) => {

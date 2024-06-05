@@ -29,6 +29,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - AboutMe
 - AllRecipes
 - Anime-Planet
+- Ao3
 - Ebay
 - Github
 - Instagram
