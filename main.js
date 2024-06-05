@@ -235,7 +235,7 @@ app.get("/search", async (req, res) => {
       sites.push(`<a href="https://xvideos.com/profiles/${username}">xvideos.com</a>`);
     }
     if (values[23] == "true") {
-      sites.push(`<a href="https://www.youtube.com/user/${username}">youtube.com</a>`);
+      sites.push(`<a href="https://www.youtube.com/@${username}">youtube.com</a>`);
     }
 
 
