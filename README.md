@@ -34,6 +34,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - anime-planet
 - ao3
 - boardgamegeek
+- buzzfeed
 - cnn
 - discussions_apple
 - ebay
