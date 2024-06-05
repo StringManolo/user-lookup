@@ -354,7 +354,10 @@ app.get("/search_tiktok", (req, res) => {
 app.get("/search_twitch", (req, res) => {
   const username = req.query.username;
   fetch(`https://m.twitch.tv/${username}`).then((response) => {
-    response.status == 200 ? res.send("true") : res.send("false");
+    return response.text();
+  })
+  .then((response) => {
+    new RegExp(`Sorry,`, "gi").test(response) ? res.send("false") : res.send("true");
   });
 });
 
