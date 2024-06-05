@@ -48,6 +48,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - tikTok
 - twitch
 - twitter (not yet)
+- vimeo
 - wikipedia
 - xvideos
 - youtube

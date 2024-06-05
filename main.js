@@ -19,27 +19,73 @@ app.get("/search", async (req, res) => {
   const username = req.query.username;
  
   const promises = [
+    //0
     fetch(`${host}/search_aboutme?username=${username}`).then((response) => aboutme = response.text()),
+
+    //1
     fetch(`${host}/search_allrecipes?username=${username}`).then((response) => allrecipes = response.text()),
+
+    //2
     fetch(`${host}/search_anime-planet?username=${username}`).then((response) => animeplanet = response.text()),
+
+    //3
     fetch(`${host}/search_ao3?username=${username}`).then((response) => ao3 = response.text()),
+
+    //4
     fetch(`${host}/search_boardgamegeek?username=${username}`).then((response) => boardgamegeek = response.text()),
+
+    //5
     fetch(`${host}/search_discussionsapple?username=${username}`).then((response) => discussionsapple = response.text()),
+
+    //6
     fetch(`${host}/search_ebay?username=${username}`).then((response) => facebook = response.text()),
+
+    //7
     fetch(`${host}/search_github?username=${username}`).then((response) => instagram = response.text()),
+
+    //8
     fetch(`${host}/search_imdb?username=${username}`).then((response) => reddit = response.text()),
+
+    //9
     fetch(`${host}/search_instagram?username=${username}`).then((response) => instagram = response.text()),
+
+    //10
     fetch(`${host}/search_pinterest?username=${username}`).then((response) => pinterest = response.text()),
+
+    //11
     fetch(`${host}/search_pornhub?username=${username}`).then((response) => pornhub = response.text()),
+
+    //12
     fetch(`${host}/search_reddit?username=${username}`).then((response) => reddit = response.text()),
+
+    //13
     fetch(`${host}/search_snapchat?username=${username}`).then((response) => snapchat = response.text()),
+
+    //14
     fetch(`${host}/search_spotify?username=${username}`).then((response) => spotify = response.text()),
+
+    //15
     fetch(`${host}/search_telegram?username=${username}`).then((response) => telegram = response.text()),
+
+    //16
     fetch(`${host}/search_tiktok?username=${username}`).then((response) => tiktok = response.text()),
+
+    //17
     fetch(`${host}/search_twitch?username=${username}`).then((response) => twitch = response.text()),
+
+    //18
     fetch(`${host}/search_twitter?username=${username}`).then((response) => twitter = response.text()),
+
+    //19
+    fetch(`${host}/search_vimeo?username=${username}`).then((response) => vimeo = response.text()),
+
+    //20
     fetch(`${host}/search_wikipedia?username=${username}`).then((response) => wikipedia = response.text()),
+
+    //21
     fetch(`${host}/search_xvideos?username=${username}`).then((response) => xvideos = response.text()),
+
+    //22
     fetch(`${host}/search_youtube?username=${username}`).then((response) => youtube = response.text())
   ];
 
@@ -105,12 +151,15 @@ app.get("/search", async (req, res) => {
       sites.push(`<a href="https://twitter.com/${username}">twitter.com</a>`);
     }
     if (values[19] == "true") {
-      sites.push(`<a href="https://www.wikipedia.org/wiki/User:${username}">wikipedia.org</a>`);
+      sites.push(`<a href="https://www.vimeo.com/${username}">vimeo.com</a>`);
     }
     if (values[20] == "true") {
-      sites.push(`<a href="https://xvideos.com/profiles/${username}">xvideos.com</a>`);
+      sites.push(`<a href="https://www.wikipedia.org/wiki/User:${username}">wikipedia.org</a>`);
     }
     if (values[21] == "true") {
+      sites.push(`<a href="https://xvideos.com/profiles/${username}">xvideos.com</a>`);
+    }
+    if (values[22] == "true") {
       sites.push(`<a href="https://www.youtube.com/user/${username}">youtube.com</a>`);
     }
 
@@ -322,6 +371,13 @@ app.get("/search_twitter", (req, res) => {
 
     res.send("false");
     //response.match(/httpErrorPage/g).length > 1 ? res.send("false") : res.send("true");
+  });
+});
+
+app.get("/search_vimeo", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://vimeo.com/${username}`).then((response) => {
+    response.status == 200 ? res.send("true") : res.send("false");
   });
 });
 
