@@ -141,6 +141,12 @@ app.get("/search_tiktok", (req, res) => {
   });
 });
 
+app.get("/search_twitch", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://m.twitch.tv/${username}`).then((response) => {
+    response.status == 200 ? res.send("true") : res.send("false");
+  });
+});
 
 /* Not done yet */
 app.get("/search_twitter", (req, res) => {

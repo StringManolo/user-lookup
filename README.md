@@ -29,25 +29,26 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 * Api returns true when the account exists in the service, and false when it doesn't
 
 ##### Available Services
-- AboutMe
-- AllRecipes
-- Anime-Planet
-- Ao3
-- BoardGameGeek
-- DiscussionsApple
-- Ebay
-- Github
-- Instagram
-- Pinterest
-- Pornhub
-- Reddit
-- Snapchat
-- Spotify
-- Telegram
-- TikTok
-- Twitter (not yet)
-- Wikipedia
-- XVideos
-- Youtube
+- aboutme
+- allrecipes
+- anime-planet
+- ao3
+- boardgamegeek
+- discussions_apple
+- ebay
+- github
+- instagram
+- pinterest
+- pornhub
+- reddit
+- snapchat
+- spotify
+- telegram
+- tikTok
+- twitch
+- twitter (not yet)
+- wikipedia
+- xvideos
+- youtube
 
 * Services may become unavailable at any time if breaking changes are made by the developers of the target service. 
