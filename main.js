@@ -18,6 +18,16 @@ app.get("/search_allrecipes", (req, res) => {
   });
 });
 
+app.get("/search_anime-planet", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://www.anime-planet.com/users/${username}`).then((response) => {
+    return response.text();
+  })
+  .then((response) => {
+    new RegExp(`<a\\s+href="/users/${username}/following">`, "gi").test(response) ? res.send("true") : res.send("false");
+  });
+});
+
 app.get("/search_ebay", (req, res) => {
   const username = req.query.username;
   fetch(`https://www.ebay.com/usr/${username}`).then((response) => {
