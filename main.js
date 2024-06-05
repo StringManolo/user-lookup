@@ -108,7 +108,7 @@ app.get("/search", async (req, res) => {
       sites.push(`<a href="https://www.wikipedia.org/wiki/User:${username}">wikipedia.org</a>`);
     }
     if (values[20] == "true") {
-      sites.push(`<a href="https://xvideos.com/user/${username}">xvideos.com</a>`);
+      sites.push(`<a href="https://xvideos.com/profiles/${username}">xvideos.com</a>`);
     }
     if (values[21] == "true") {
       sites.push(`<a href="https://www.youtube.com/user/${username}">youtube.com</a>`);
