@@ -3,7 +3,7 @@
 Check if username exists in many services like Instagram, TikTok, Twitter, Wikipedia, and Youtube
 
 ## Legal
-
+[Legal Notice](https://github.com/StringManolo/user-lookup/blob/main/LEGAL.md#disclaimer-notice)
 
 ### Usage
 
