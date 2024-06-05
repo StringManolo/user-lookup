@@ -7,12 +7,81 @@ const port = 3000;
 const host = `http://localhost:${port}`;
 
 app.get("/user-lookup", (req, res) => {
-  res.send(`<h1>User Lookup</h1>
-  <form action="/search" method="get">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username">
-    <input type="submit" value="Submit">
-  </form>`);
+  res.send(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Lookup</title>
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgo="> <!-- Favicon nulo en base64 -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 300px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Lookup</h1>
+        <form action="/search" method="get">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
+  `);
+
+
 });
 
 app.get("/search", async (req, res) => {
@@ -357,7 +426,7 @@ app.get("/search_twitch", (req, res) => {
     return response.text();
   })
   .then((response) => {
-    new RegExp(`Sorry,`, "gi").test(response) ? res.send("false") : res.send("true");
+    new RegExp(`Sorry, that page is in another castle`, "gi").test(response) ? res.send("false") : res.send("true");
   });
 });
 
