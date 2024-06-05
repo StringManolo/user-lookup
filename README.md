@@ -46,7 +46,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - snapchat
 - spotify
 - telegram
-- tikTok
+- tiktok
 - twitch
 - twitter (not yet)
 - vimeo
