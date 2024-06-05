@@ -37,6 +37,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - discussions_apple
 - ebay
 - github
+- imdb
 - instagram
 - pinterest
 - pornhub

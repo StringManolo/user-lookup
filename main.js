@@ -69,6 +69,16 @@ app.get("/search_github", (req, res) => {
   });
 });
 
+app.get("/search_imdb", (req, res) => {
+  const username = req.query.username;
+  fetch(`https://html.duckduckgo.com/html?q=site:imdb.com%20%2B%20%22user%22%20%2B%20%22ur%22%20${username}%20-%22title%22`).then((response) => {
+    return response.text(); 
+  })
+  .then((response) => {
+    new RegExp(`<a[^>]+>${username}\&\#x27\;s Profile - IMDb</a>`, "gi").test(response) ? res.send("true") : res.send("false");
+  });
+});
+
 app.get("/search_instagram", (req, res) => {
   const username = req.query.username;
   fetch(`https://www.instagram.com/${username}`).then((response) => {
