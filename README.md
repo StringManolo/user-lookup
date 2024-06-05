@@ -2,6 +2,9 @@
 
 Check if username exists in many services like Instagram, TikTok, Twitter, Wikipedia, and Youtube
 
+## Legal
+
+
 ### Usage
 
 ##### Download the Software
