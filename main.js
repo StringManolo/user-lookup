@@ -243,59 +243,6 @@ app.get("/search", async (req, res) => {
     }
 
 
-/*
-    res.send(`
-      <html>
-      <head>
-        <style>
-          body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-            background-color: #f4f4f4;
-            -webkit-text-size-adjust: none;
-
-          }
-          h1 {
-            color: #333;
-          }
-          a {
-            display: block;
-            margin: 10px 0;
-            color: #0073e6;
-            text-decoration: none;
-          }
-          a:hover {
-            text-decoration: underline;
-          }
-
-          textarea {
-            width: 100%;
-            height: 200px;
-            margin-top: 20px;
-            padding: 10px;
-            font-size: 16px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: none;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>Results for ${username}</h1>
-        ${sites.length > 0 ? sites.join("") : "<p>No profiles found.</p>"}
-
-        <textarea placeholder="Results" readonly>${sites.map(site => {
-    const hrefStartIndex = site.indexOf("href=\"") + 6;
-    const hrefEndIndex = site.indexOf("\">");
-    return site.substring(hrefStartIndex, hrefEndIndex);}).join("\n")}</textarea>
-      </body>
-      </html>
-    `);
-*/
-
-
     res.send(`
 <html>
 <head>
