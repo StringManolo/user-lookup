@@ -116,6 +116,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_spotify": `https://open.spotify.com/user/${username}`,
     "search_telegram": `https://t.me/${username}`,
     "search_tiktok": `https://tiktok.com/@${username}`,
+    "search_tumblr": `https://tumblr.com/${username}`,
     "search_twitch": `https://twitch.tv/${username}`,
     "search_twitter": `https://twitter.com/${username}`,
     "search_vimeo": `https://vimeo.com/${username}`,
@@ -158,6 +159,7 @@ app.get("/search", async (req, res) => {
     "search_spotify",
     "search_telegram",
     "search_tiktok",
+    "search_tumblr",
     "search_twitch",
     "search_twitter",
     "search_vimeo",
@@ -370,6 +372,7 @@ const searchHandlers = {
   "/search_tiktok": (req, res) => fetchText("https://www.tiktok.com/@", req, res, (response) => {
     res.send(new RegExp(`"uniqueId":"${req.query.username}"`, "gi").test(response) ? "true" : "false");
   }),
+  "/search_tumblr": (req, res) => fetchStatus("https://www.tumblr.com/", req, res),
   "/search_twitch": (req, res) => fetchText("https://m.twitch.tv/", req, res, (response) => {
     res.send(new RegExp(`profile_image`, "gi").test(response) ? "true" : "false");
   }),

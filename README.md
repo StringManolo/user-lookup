@@ -60,6 +60,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - spotify
 - telegram
 - tiktok
+- tumblr
 - twitch
 - twitter (not yet)
 - vimeo
