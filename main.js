@@ -88,166 +88,89 @@ app.get("/user-lookup", (req, res) => {
 
 });
 
+
+const fetchProfiles = async (username, host, endpoints) => {
+  const promises = endpoints.map(endpoint =>
+    fetch(`${host}/${endpoint}?username=${username}`).then(response => response.text())
+  );
+  return Promise.all(promises);
+};
+
+const createProfileLinks = (username, values, endpoints) => {
+  const urls = {
+    "search_aboutme": `https://about.me/${username}`,
+    "search_allrecipes": `https://allrecipes.com/cook/${username}/`,
+    "search_anime-planet": `https://anime-planet.com/users/${username}`,
+    "search_ao3": `https://archiveofourown.org/users/${username}`,
+    "search_boardgamegeek": `https://boardgamegeek.com/user/${username}`,
+    "search_buzzfeed": `https://buzzfeed.com/${username}`,
+    "search_cnn": `https://edition.cnn.com/profiles/${username}`,
+    "search_discussions_apple": `https://discussions.apple.com/profile/${username}`,
+    "search_ebay": `https://ebay.com/usr/${username}`,
+    "search_github": `https://github.com/${username}`,
+    "search_imdb": `https://imdb.com/user/${username}`,
+    "search_instagram": `https://instagram.com/${username}`,
+    "search_pinterest": `https://pinterest.com/${username}`,
+    "search_pornhub": `https://pornhub.com/users/${username}`,
+    "search_reddit": `https://reddit.com/user/${username}`,
+    "search_snapchat": `https://snapchat.com/add/${username}`,
+    "search_spotify": `https://open.spotify.com/user/${username}`,
+    "search_telegram": `https://t.me/${username}`,
+    "search_tiktok": `https://tiktok.com/@${username}`,
+    "search_twitch": `https://twitch.tv/${username}`,
+    "search_twitter": `https://twitter.com/${username}`,
+    "search_vimeo": `https://vimeo.com/${username}`,
+    "search_wikipedia": `https://wikipedia.org/wiki/User:${username}`,
+    "search_xvideos": `https://xvideos.com/profiles/${username}`,
+    "search_youtube": `https://youtube.com/@${username}`
+  };
+
+  const sites = [];
+
+  endpoints.forEach((endpoint, index) => {
+    if (values[index] === "true") {
+      const url = urls[endpoint];
+      const domain = (new URL(url)).hostname;
+      sites.push(`<a href="${url}">${domain}</a>`);
+    }
+  });
+
+  return sites;
+};
+
 app.get("/search", async (req, res) => {
   const username = req.query.username;
- 
-  const promises = [
-    //0
-    fetch(`${host}/search_aboutme?username=${username}`).then((response) => aboutme = response.text()),
-
-    //1
-    fetch(`${host}/search_allrecipes?username=${username}`).then((response) => allrecipes = response.text()),
-
-    //2
-    fetch(`${host}/search_anime-planet?username=${username}`).then((response) => animeplanet = response.text()),
-
-    //3
-    fetch(`${host}/search_ao3?username=${username}`).then((response) => ao3 = response.text()),
-
-    //4
-    fetch(`${host}/search_boardgamegeek?username=${username}`).then((response) => boardgamegeek = response.text()),
-
-    //5
-    fetch(`${host}/search_buzzfeed?username=${username}`).then((response) => buzzfeed = response.text()),
-
-    //6
-    fetch(`${host}/search_cnn?username=${username}`).then((response) => cnn = response.text()),
-
-    //7
-    fetch(`${host}/search_discussions_apple?username=${username}`).then((response) => discussionsapple = response.text()),
-
-    //8
-    fetch(`${host}/search_ebay?username=${username}`).then((response) => facebook = response.text()),
-
-    //9
-    fetch(`${host}/search_github?username=${username}`).then((response) => instagram = response.text()),
-
-    //10
-    fetch(`${host}/search_imdb?username=${username}`).then((response) => reddit = response.text()),
-
-    //11
-    fetch(`${host}/search_instagram?username=${username}`).then((response) => instagram = response.text()),
-
-    //12
-    fetch(`${host}/search_pinterest?username=${username}`).then((response) => pinterest = response.text()),
-
-    //13
-    fetch(`${host}/search_pornhub?username=${username}`).then((response) => pornhub = response.text()),
-
-    //14
-    fetch(`${host}/search_reddit?username=${username}`).then((response) => reddit = response.text()),
-
-    //15
-    fetch(`${host}/search_snapchat?username=${username}`).then((response) => snapchat = response.text()),
-
-    //16
-    fetch(`${host}/search_spotify?username=${username}`).then((response) => spotify = response.text()),
-
-    //17
-    fetch(`${host}/search_telegram?username=${username}`).then((response) => telegram = response.text()),
-
-    //18
-    fetch(`${host}/search_tiktok?username=${username}`).then((response) => tiktok = response.text()),
-
-    //19
-    fetch(`${host}/search_twitch?username=${username}`).then((response) => twitch = response.text()),
-
-    //20
-    fetch(`${host}/search_twitter?username=${username}`).then((response) => twitter = response.text()),
-
-    //21
-    fetch(`${host}/search_vimeo?username=${username}`).then((response) => vimeo = response.text()),
-
-    //22
-    fetch(`${host}/search_wikipedia?username=${username}`).then((response) => wikipedia = response.text()),
-
-    //23
-    fetch(`${host}/search_xvideos?username=${username}`).then((response) => xvideos = response.text()),
-
-    //24
-    fetch(`${host}/search_youtube?username=${username}`).then((response) => youtube = response.text())
+  const endpoints = [
+    "search_aboutme",
+    "search_allrecipes",
+    "search_anime-planet",
+    "search_ao3",
+    "search_boardgamegeek",
+    "search_buzzfeed",
+    "search_cnn",
+    "search_discussions_apple",
+    "search_ebay",
+    "search_github",
+    "search_imdb",
+    "search_instagram",
+    "search_pinterest",
+    "search_pornhub",
+    "search_reddit",
+    "search_snapchat",
+    "search_spotify",
+    "search_telegram",
+    "search_tiktok",
+    "search_twitch",
+    "search_twitter",
+    "search_vimeo",
+    "search_wikipedia",
+    "search_xvideos",
+    "search_youtube"
   ];
 
   try {
-    const values = await Promise.all(promises);
-    const sites = [];
-
-    if (values[0] == "true") {
-      sites.push(`<a href="https://about.me/${username}">about.me`);
-    }
-    if (values[1] == "true") {
-      sites.push(`<a href="https://allrecipes.com/cook/${username}/">allrecipes.com</a>`);
-    }
-    if (values[2] == "true") {
-      sites.push(`<a href="https://www.anime-planet.com/users/${username}">anime-planet.com</a>`);
-    }
-    if (values[3] == "true") {
-      sites.push(`<a href="https://archiveofourown.org/users/${username}">archiveofourown.org</a>`);
-    }
-    if (values[4] == "true") {
-      sites.push(`<a href="https://boardgamegeek.com/user/${username}">boardgamegeek.com</a>`);
-    }
-    if (values[5] == "true") {
-      sites.push(`<a href="https://buzzfeed.com/${username}">buzzfeed.com</a>`);
-    }
-    if (values[6] == "true") {
-      sites.push(`<a href="https://edition.cnn.com/profiles/${username}">cnn.com</a>`);
-    }
-    if (values[7] == "true") {
-      sites.push(`<a href="https://discussions.apple.com/profile/${username}">discussions.apple.com</a>`);
-    }
-    if (values[8] == "true") {
-      sites.push(`<a href="https://www.ebay.com/usr/${username}">ebay.com</a>`);
-    }
-    if (values[9] == "true") {
-      sites.push(`<a href="https://github.com/${username}">github.com</a>`);
-    }
-    if (values[10] == "true") {
-      sites.push(`<a href="https://www.imdb.com/user/${username}">imdb.com</a>`);
-    }
-    if (values[11] == "true") {
-      sites.push(`<a href="https://www.instagram.com/${username}">instagram.com</a>`);
-    }
-    if (values[12] == "true") {
-      sites.push(`<a href="https://www.pinterest.com/${username}">pinterest.com</a>`);
-    }
-    if (values[13] == "true") {
-      sites.push(`<a href="https://www.pornhub.com/users/${username}">pornhub.com</a>`);
-    }
-    if (values[14] == "true") {
-      sites.push(`<a href="https://www.reddit.com/user/${username}">reddit.com</a>`);
-    }
-    if (values[15] == "true") {
-      sites.push(`<a href="https://www.snapchat.com/add/${username}">snapchat.com</a>`);
-    }
-    if (values[16] == "true") {
-      sites.push(`<a href="https://open.spotify.com/user/${username}">spotify.com</a>`);
-    }
-    if (values[17] == "true") {
-      sites.push(`<a href="https://t.me/${username}">t.me</a>`);
-    }
-    if (values[18] == "true") {
-      sites.push(`<a href="https://www.tiktok.com/@${username}">tiktok.com</a>`);
-    }
-    if (values[19] == "true") {
-      sites.push(`<a href="https://www.twitch.tv/${username}">twitch.tv</a>`);
-    }
-    if (values[20] == "true") {
-      sites.push(`<a href="https://twitter.com/${username}">twitter.com</a>`);
-    }
-    if (values[21] == "true") {
-      sites.push(`<a href="https://www.vimeo.com/${username}">vimeo.com</a>`);
-    }
-    if (values[22] == "true") {
-      sites.push(`<a href="https://www.wikipedia.org/wiki/User:${username}">wikipedia.org</a>`);
-    }
-    if (values[23] == "true") {
-      sites.push(`<a href="https://xvideos.com/profiles/${username}">xvideos.com</a>`);
-    }
-    if (values[24] == "true") {
-      sites.push(`<a href="https://www.youtube.com/@${username}">youtube.com</a>`);
-    }
-
+    const values = await fetchProfiles(username, host, endpoints);
+    const sites = createProfileLinks(username, values, endpoints);
 
     res.send(`
 <html>
@@ -321,7 +244,6 @@ app.get("/search", async (req, res) => {
   </div>
 
   <script>
-    // Guardar el valor original del textarea
     const originalValue = document.getElementById('resultsTextarea').value;
 
     function formatDefault() {
@@ -347,24 +269,15 @@ app.get("/search", async (req, res) => {
     function formatHTML() {
       formatDefault();
       const textarea = document.getElementById('resultsTextarea');
-    
-      const urls = textarea.value.split('\\n').map(url => {
-        const cleanUrl = url.replace('https://', '');
-        const parts = cleanUrl.split('/');
-        const domain = parts.length > 1 ? parts[0] : cleanUrl;
-        return \`<a href="\${url}">\${domain}</a>\`;
-      }).join('\\n');
+      const urls = textarea.value.split('\\n').map(url => \`<a href="\${url}">\${url}</a>\`).join('\\n');
       textarea.value = urls;
     }
 
     function formatMarkdown() {
       formatDefault();
       const textarea = document.getElementById('resultsTextarea');
-    
       const urls = textarea.value.split('\\n').map(url => {
-        const cleanUrl = url.replace('https://', '');
-        const parts = cleanUrl.split('/');
-        const domain = parts.length > 1 ? parts[0] : cleanUrl;
+        const domain = (new URL(url)).hostname;
         return \`[\${domain}](\${url})\`;
       }).join('\\n');
       textarea.value = urls;
@@ -380,259 +293,131 @@ app.get("/search", async (req, res) => {
       element.click();
       document.body.removeChild(element);
     }
-    
-
   </script>
 </body>
 </html>
-`);
-
-
-    
+    `);
   } catch (error) {
     console.error(error);
     res.status(500).send("Error fetching data");
   }
-
 });
 
-app.get("/search_aboutme", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://about.me/${username}`).then((response) => {
+
+const fetchStatus = (url, req, res, padding = "") => {
+  fetch(`${url}${req.query.username}${padding}`).then((response) => {
     response.status == 200 ? res.send("true") : res.send("false");
   });
-});
+}
 
-app.get("/search_allrecipes", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://www.allrecipes.com/cook/${username}/`).then((response) => {
-    response.status == 200 ? res.send("true") : res.send("false");
-  });
-});
-
-app.get("/search_anime-planet", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://www.anime-planet.com/users/${username}`).then((response) => {
+const fetchText = (url, req, res, callback) => {
+  fetch(`${url}${req.query.username}`).then((response) => {
     return response.text();
   })
   .then((response) => {
-    new RegExp(`<a\\s+href="/users/${username}/following">`, "gi").test(response) ? res.send("true") : res.send("false");
+    callback(response);
   });
-});
+}
 
-app.get("/search_ao3", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://archiveofourown.org/users/${username}/works`).then((response) => {
-    response.status == 200 ? res.send("true") : res.send("false");
-  });
-});
+app.get("/search_aboutme", (req, res) => fetchStatus("https://about.me/", req, res) );
 
-app.get("/search_boardgamegeek", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://boardgamegeek.com/user/${username}`).then((response) => {
-    return response.text();
-  })
-  .then((response) => {
-    new RegExp(`Error: User does not exist`, "gi").test(response) ? res.send("false") : res.send("true");
-  });
-});
+app.get("/search_allrecipes", (req, res) => fetchStatus("https://www.allrecipes.com/cook/", req, res) );
 
-app.get("/search_buzzfeed", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://www.buzzfeed.com/${username}`).then((response) => {
-    return response.text();
-  })
-  .then((response) => {
-    if (new RegExp(`joined`, "gi").test(response) && new RegExp(`trophies`, "gi").test(response)) {
-      res.send("true");
-    } else {
-      res.send("false");
-    }
-  });
-})
+app.get("/search_anime-planet", (req, res) => fetchText("https://www.anime-planet.com/users/", req, res, (response) => {
+  new RegExp(`<a\\s+href="/users/${req.query.username}/following">`, "gi").test(response) ? res.send("true") : res.send("false"); 
+}));
 
-app.get("/search_cnn", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://edition.cnn.com/profiles/${username}`).then((response) => {
-    response.status == 200 ? res.send("true") : res.send("false");
-  });
-});
+app.get("/search_ao3", (req, res) => fetchStatus("https://archiveofourown.com/users/", req, res, "/works") );
 
-app.get("/search_discussions_apple", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://discussions.apple.com/profile/${username}`).then((response) => {
-    return response.text();
-  })
-  .then((response) => {
-    new RegExp("user-profile-name", "gi").test(response) ? res.send("true") : res.send("false");
-  });
-});
+app.get("/search_boardgamegeek", (req, res) => fetchText("https://boardgamegeek.com/user/", req, res, (response) => {
+  new RegExp(`Error: User does not exist`, "gi").test(response) ? res.send("false") : res.send("true");
+}));
 
-app.get("/search_ebay", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://www.ebay.com/usr/${username}`).then((response) => {
-    return response.text();
-  })
-  .then((response) => {
-    new RegExp("Member since", "gi").test(response) ? res.send("true") : res.send("false");
-  });
-});
+app.get("/search_buzzfeed", (req, res) => fetchText("https://www.buzzfeed.com/", req, res, (response) => {
+  new RegExp(`joined`, "gi").test(response) && new RegExp(`trophies`, "gi").test(response) ? res.send("true") : res.send("false");
+}));
 
-app.get("/search_github", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://github.com/${username}`).then((response) => {
-    response.status == 200 ? res.send("true") : res.send("false");
-  });
-});
+app.get("/search_cnn", (req, res) => fetchStatus("https://edition.cnn.com/profiles/", req, res) );
 
+app.get("/search_discussions_apple", (req, res) => fetchText("https://discussions.apple.com/profile/", req, res, (response) => {
+  new RegExp(`user-profile-name`, "gi").test(response) ? res.send("true") : res.send("false");
+}));
+
+app.get("/search_ebay", (req, res) => fetchText("https://www.ebay.com/usr/", req, res, (response) => {
+  new RegExp(`Member since`, "gi").test(response) ? res.send("true") : res.send("false");
+}));
+
+app.get("/search_github", (req, res) => fetchStatus("https://github.com/", req, res) );
+
+/* Don't fall into fetchStatus or fetchText */
 app.get("/search_imdb", (req, res) => {
   const username = req.query.username;
   fetch(`https://html.duckduckgo.com/html?q=site:imdb.com%20%2B%20%22user%22%20%2B%20%22ur%22%20${username}%20-%22title%22`).then((response) => {
-    return response.text(); 
+    return response.text();
   })
   .then((response) => {
     new RegExp(`<a[^>]+>${username}\&\#x27\;s Profile - IMDb</a>`, "gi").test(response) ? res.send("true") : res.send("false");
   });
 });
 
-app.get("/search_instagram", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://www.instagram.com/${username}`).then((response) => {
-    return response.text();
-  })
-  .then((response) => {
-    response.match(/httpErrorPage/g).length > 1 ? res.send("false") : res.send("true");
-  });
-});
+app.get("/search_instagram", (req, res) => fetchText("https://www.instagram.com/", req, res, (response) => {
+  response.match(/httpErrorPage/g).length > 1 ? res.send("false") : res.send("true");
+}));
 
-app.get("/search_pinterest", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://www.pinterest.com/${username}`).then((response) => {
-    return response.text();
-  })
-  .then((response) => {
-    new RegExp(`user not found`, "gi").test(response) ? res.send("false") : res.send("true");
-  });
+app.get("/search_pinterest", (req, res) => fetchText("https://www.pinterest.com/", req, res, (response) => {
+  new RegExp(`user not found`, "gi").test(response) ? res.send("false") : res.send("true");
+}));
 
-});
+app.get("/search_pornhub", (req, res) => fetchStatus("https://www.pornhub.com/users/", req, res) );
 
-app.get("/search_pornhub", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://www.pornhub.com/users/${username}`).then((response) => {
-    response.status == 200 ? res.send("true") : res.send("false");
-  });
-});
+app.get("/search_reddit", (req, res) => fetchText("https://www.reddit.com/user/", req, res, (response) => {
+  new RegExp(`Sorry, nobody on Reddit goes by that name.`, "gi").test(response) ? res.send("false") : res.send("true");
+}));
 
-app.get("/search_reddit", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://www.reddit.com/user/${username}`).then((response) => {
-    return response.text();
-  })
-  .then((response) => {
-    new RegExp(`Sorry, nobody on Reddit goes by that name.`, "gi").test(response) ? res.send("false") : res.send("true");
-  });
-});
+app.get("/search_snapchat", (req, res) => fetchStatus("https://www.snapchat.com/add/", req, res) );
 
-app.get("/search_snapchat", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://www.snapchat.com/add/${username}`).then((response) => {
-    response.status == 200 ? res.send("true") : res.send("false");
-  });
-});
+app.get("/search_spotify", (req, res) => fetchStatus("https://open.spotify.com/user/", req, res) );
 
-app.get("/search_spotify", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://open.spotify.com/user/${username}`).then((response) => {
-    response.status == 200 ? res.send("true") : res.send("false");
-  });
-});
+app.get("/search_telegram", (req, res) => fetchText("https://t.me/", req, res, (response) => {
+  new RegExp(`tgme_page_title`, "gi").test(response) ? res.send("true") : res.send("false");
+}));
 
-app.get("/search_telegram", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://t.me/${username}`).then((response) => {
-    return response.text();
-  })
-  .then((response) => {
-    new RegExp(`tgme_page_title`, "gi").test(response) ? res.send("true") : res.send("false"); 
-  });
-});
+app.get("/search_tiktok", (req, res) => fetchText("https://www.tiktok.com/@", req, res, (response) => {
+  new RegExp(`"uniqueId":"${req.query.username}"`, "gi").test(response) ? res.send("true") : res.send("false");
+}));
 
-app.get("/search_tiktok", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://www.tiktok.com/@${username}`).then((response) => {
-    return response.text();
-  })
-  .then((response) => {
-    new RegExp(`"uniqueId":"${username}"`, "gi").test(response) ? res.send("true") : res.send("false");
-  });
-});
-
-app.get("/search_twitch", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://m.twitch.tv/${username}`).then((response) => {
-    return response.text();
-  })
-  .then((response) => {
-    new RegExp(`profile_image`, "gi").test(response) ? res.send("true") : res.send("false");
-  });
-});
+app.get("/search_twitch", (req, res) => fetchText("https://m.twitch.tv/", req, res, (response) => {
+  new RegExp(`profile_image`, "gi").test(response) ? res.send("true") : res.send("false");
+}));
 
 /* Not done yet */
-app.get("/search_twitter", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://x.com/${username}`).then((response) => {
-    return response.text();
-  })
-  .then((response) => {
-    
-    /* TODO:
-     * Make manual redirection by "setting" cookie from response headers and follow URL redirection manually */
+app.get("/search_twitter", (req, res) => fetchText("https://x.com/", req, res, (response) => {
+  /* TODO:
+   * Make manual redirection by "setting" cookie from response headers and follow URL redirection manually */
 
+  res.send("false");
+  /*
+    response.match(/httpErrorPage/g).length > 1 ? res.send("false") : res.send("true");
+  */
+}));
+
+app.get("/search_vimeo", (req, res) => fetchStatus("https://vimeo.com/", req, res) );
+
+app.get("/search_wikipedia", (req, res) => fetchText("https://en.wikipedia.org/wiki/User:", req, res, (response) => {
+  if (new RegExp(`is not registered on this wiki`, "gim").test(response)) {
     res.send("false");
-    //response.match(/httpErrorPage/g).length > 1 ? res.send("false") : res.send("true");
-  });
-});
+  } else if (new RegExp(`Wikipedia does not have a`, "gim").test(response)) {
+    res.send("false");
+  } else {
+    res.send("true");
+  }
+}));
 
-app.get("/search_vimeo", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://vimeo.com/${username}`).then((response) => {
-    response.status == 200 ? res.send("true") : res.send("false");
-  });
-});
+app.get("/search_xvideos", (req, res) => fetchStatus("https://www.xvideos.com/profiles/", req, res) );
 
-app.get("/search_wikipedia", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://en.wikipedia.org/wiki/User:${username}`).then((response) => {
-    return response.text();
-  })
-  .then((response) => {
-    if (new RegExp(`is not registered on this wiki`, "gim").test(response)) {
-      res.send("false");
-    } else if (new RegExp(`Wikipedia does not have a`, "gim").test(response)) {
-      res.send("false");
-    } else {
-      res.send("true");
-    }
-  });
-});
-
-app.get("/search_xvideos", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://www.xvideos.com/profiles/${username}`).then((response) => {
-    response.status == 200 ? res.send("true") : res.send("false");
-  });
-});
-
-app.get("/search_youtube", (req, res) => {
-  const username = req.query.username;
-  fetch(`https://www.youtube.com/@${username}`).then((response) => {
-    response.status == 200 ? res.send("true") : res.send("false");
-  });
-});
-
-
+app.get("/search_youtube", (req, res) => fetchStatus("https://www.youtube.com/@", req, res) );
 
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
-});
+})
