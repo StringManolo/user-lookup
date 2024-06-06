@@ -5,6 +5,9 @@ Check if username exists in many services like Instagram, TikTok, Twitter, Wikip
 ## Legal
 [Legal Notice](https://github.com/StringManolo/user-lookup/blob/main/LEGAL.md#disclaimer-notice)
 
+### Preview
+![Preview](https://raw.githubusercontent.com/StringManolo/user-lookup/378c42812db7c84d6c81394259fa9516d67f8b68/images/user_lookup_image_1.jpg)
+
 ### Usage
 
 ##### Download the Software
