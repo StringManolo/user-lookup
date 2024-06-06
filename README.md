@@ -12,9 +12,19 @@ Check if username exists in many services like Instagram, TikTok, Twitter, Wikip
 git clone https://github.com/stringmanolo/user-lookup
 ```
 
-##### Start the Local Server
+##### Move to the Directory
 ```bash
-node main.js
+cd user-lookup
+```
+
+##### Install Dependencies
+```bash
+npm install
+```
+
+##### Start the Program
+```bash
+npm start # or node main.js
 ```
 
 ##### Open the Webpage in your Browser
@@ -32,7 +42,6 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - aboutme
 - allrecipes
 - anime-planet
-- ao3
 - boardgamegeek
 - buzzfeed
 - cnn

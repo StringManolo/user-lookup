@@ -101,7 +101,6 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_aboutme": `https://about.me/${username}`,
     "search_allrecipes": `https://allrecipes.com/cook/${username}/`,
     "search_anime-planet": `https://anime-planet.com/users/${username}`,
-    "search_ao3": `https://archiveofourown.org/users/${username}`,
     "search_boardgamegeek": `https://boardgamegeek.com/user/${username}`,
     "search_buzzfeed": `https://buzzfeed.com/${username}`,
     "search_cnn": `https://edition.cnn.com/profiles/${username}`,
@@ -144,7 +143,6 @@ app.get("/search", async (req, res) => {
     "search_aboutme",
     "search_allrecipes",
     "search_anime-planet",
-    "search_ao3",
     "search_boardgamegeek",
     "search_buzzfeed",
     "search_cnn",
@@ -303,9 +301,9 @@ app.get("/search", async (req, res) => {
   }
 });
 
-const fetchStatus = async (url, req, res, padding = "") => {
+const fetchStatus = async (url, req, res) => {
   try {
-    const response = await fetch(`${url}${req.query.username}${padding}`);
+    const response = await fetch(`${url}${req.query.username}`);
     res.send(response.status === 200 ? "true" : "false");
   } catch (error) {
     res.send("false");
@@ -330,7 +328,6 @@ const searchHandlers = {
   "/search_anime-planet": (req, res) => fetchText("https://www.anime-planet.com/users/", req, res, (response) => {
     res.send(new RegExp(`<a\\s+href="/users/${req.query.username}/following">`, "gi").test(response) ? "true" : "false");
   }),
-  "/search_ao3": (req, res) => fetchStatus("https://archiveofourown.com/users/", req, res, "/works"),
   "/search_boardgamegeek": (req, res) => fetchText("https://boardgamegeek.com/user/", req, res, (response) => {
     res.send(new RegExp(`Error: User does not exist`, "gi").test(response) ? "false" : "true");
   }),
