@@ -324,67 +324,73 @@ const fetchText = async (url, req, res, callback) => {
 
 const appGet = (path, handler) => app.get(path, (req, res) => handler(req, res));
 
-appGet("/search_aboutme", (req, res) => fetchStatus("https://about.me/", req, res));
-appGet("/search_allrecipes", (req, res) => fetchStatus("https://www.allrecipes.com/cook/", req, res));
-appGet("/search_anime-planet", (req, res) => fetchText("https://www.anime-planet.com/users/", req, res, (response) => {
-  res.send(new RegExp(`<a\\s+href="/users/${req.query.username}/following">`, "gi").test(response) ? "true" : "false");
-}));
-appGet("/search_ao3", (req, res) => fetchStatus("https://archiveofourown.com/users/", req, res, "/works"));
-appGet("/search_boardgamegeek", (req, res) => fetchText("https://boardgamegeek.com/user/", req, res, (response) => {
-  res.send(new RegExp(`Error: User does not exist`, "gi").test(response) ? "false" : "true");
-}));
-appGet("/search_buzzfeed", (req, res) => fetchText("https://www.buzzfeed.com/", req, res, (response) => {
-  res.send(new RegExp(`joined`, "gi").test(response) && new RegExp(`trophies`, "gi").test(response) ? "true" : "false");
-}));
-appGet("/search_cnn", (req, res) => fetchStatus("https://edition.cnn.com/profiles/", req, res));
-appGet("/search_discussions_apple", (req, res) => fetchText("https://discussions.apple.com/profile/", req, res, (response) => {
-  res.send(new RegExp(`user-profile-name`, "gi").test(response) ? "true" : "false");
-}));
-appGet("/search_ebay", (req, res) => fetchText("https://www.ebay.com/usr/", req, res, (response) => {
-  res.send(new RegExp(`Member since`, "gi").test(response) ? "true" : "false");
-}));
-appGet("/search_github", (req, res) => fetchStatus("https://github.com/", req, res));
-appGet("/search_imdb", async (req, res) => {
-  const username = req.query.username;
-  try {
-    const response = await fetch(`https://html.duckduckgo.com/html?q=site:imdb.com%20%2B%20%22user%22%20%2B%20%22ur%22%20${username}%20-%22title%22`);
-    const text = await response.text();
-    res.send(new RegExp(`<a[^>]+>${username}\&\#x27\;s Profile - IMDb</a>`, "gi").test(text) ? "true" : "false");
-  } catch (error) {
-    res.send("false");
-  }
-});
-appGet("/search_instagram", (req, res) => fetchText("https://www.instagram.com/", req, res, (response) => {
-  res.send(response.match(/httpErrorPage/g).length > 1 ? "false" : "true");
-}));
-appGet("/search_pinterest", (req, res) => fetchText("https://www.pinterest.com/", req, res, (response) => {
-  res.send(new RegExp(`user not found`, "gi").test(response) ? "false" : "true");
-}));
-appGet("/search_pornhub", (req, res) => fetchStatus("https://www.pornhub.com/users/", req, res));
-appGet("/search_reddit", (req, res) => fetchText("https://www.reddit.com/user/", req, res, (response) => {
-  res.send(new RegExp(`Sorry, nobody on Reddit goes by that name.`, "gi").test(response) ? "false" : "true");
-}));
-appGet("/search_snapchat", (req, res) => fetchStatus("https://www.snapchat.com/add/", req, res));
-appGet("/search_spotify", (req, res) => fetchStatus("https://open.spotify.com/user/", req, res));
-appGet("/search_telegram", (req, res) => fetchText("https://t.me/", req, res, (response) => {
-  res.send(new RegExp(`tgme_page_title`, "gi").test(response) ? "true" : "false");
-}));
-appGet("/search_tiktok", (req, res) => fetchText("https://www.tiktok.com/@", req, res, (response) => {
-  res.send(new RegExp(`"uniqueId":"${req.query.username}"`, "gi").test(response) ? "true" : "false");
-}));
-appGet("/search_twitch", (req, res) => fetchText("https://m.twitch.tv/", req, res, (response) => {
-  res.send(new RegExp(`profile_image`, "gi").test(response) ? "true" : "false");
-}));
-appGet("/search_twitter", (req, res) => fetchText("https://x.com/", req, res, (response) => {
-  res.send("false"); // Implement manual redirection and cookie setting
-}));
-appGet("/search_vimeo", (req, res) => fetchStatus("https://vimeo.com/", req, res));
-appGet("/search_wikipedia", (req, res) => fetchText("https://en.wikipedia.org/wiki/User:", req, res, (response) => {
-  res.send(new RegExp(`is not registered on this wiki`, "gim").test(response) || new RegExp(`Wikipedia does not have a`, "gim").test(response) ? "false" : "true");
-}));
-appGet("/search_xvideos", (req, res) => fetchStatus("https://www.xvideos.com/profiles/", req, res));
-appGet("/search_youtube", (req, res) => fetchStatus("https://www.youtube.com/@", req, res));
+const searchHandlers = {
+  "/search_aboutme": (req, res) => fetchStatus("https://about.me/", req, res),
+  "/search_allrecipes": (req, res) => fetchStatus("https://www.allrecipes.com/cook/", req, res),
+  "/search_anime-planet": (req, res) => fetchText("https://www.anime-planet.com/users/", req, res, (response) => {
+    res.send(new RegExp(`<a\\s+href="/users/${req.query.username}/following">`, "gi").test(response) ? "true" : "false");
+  }),
+  "/search_ao3": (req, res) => fetchStatus("https://archiveofourown.com/users/", req, res, "/works"),
+  "/search_boardgamegeek": (req, res) => fetchText("https://boardgamegeek.com/user/", req, res, (response) => {
+    res.send(new RegExp(`Error: User does not exist`, "gi").test(response) ? "false" : "true");
+  }),
+  "/search_buzzfeed": (req, res) => fetchText("https://www.buzzfeed.com/", req, res, (response) => {
+    res.send(new RegExp(`joined`, "gi").test(response) && new RegExp(`trophies`, "gi").test(response) ? "true" : "false");
+  }),
+  "/search_cnn": (req, res) => fetchStatus("https://edition.cnn.com/profiles/", req, res),
+  "/search_discussions_apple": (req, res) => fetchText("https://discussions.apple.com/profile/", req, res, (response) => {
+    res.send(new RegExp(`user-profile-name`, "gi").test(response) ? "true" : "false");
+  }),
+  "/search_ebay": (req, res) => fetchText("https://www.ebay.com/usr/", req, res, (response) => {
+    res.send(new RegExp(`Member since`, "gi").test(response) ? "true" : "false");
+  }),
+  "/search_github": (req, res) => fetchStatus("https://github.com/", req, res),
+  "/search_imdb": async (req, res) => {
+    const username = req.query.username;
+    try {
+      const response = await fetch(`https://html.duckduckgo.com/html?q=site:imdb.com%20%2B%20%22user%22%20%2B%20%22ur%22%20${username}%20-%22title%22`);
+      const text = await response.text();
+      res.send(new RegExp(`<a[^>]+>${username}\&\#x27\;s Profile - IMDb</a>`, "gi").test(text) ? "true" : "false");
+    } catch (error) {
+      res.send("false");
+    }
+  },
+  "/search_instagram": (req, res) => fetchText("https://www.instagram.com/", req, res, (response) => {
+    res.send(response.match(/httpErrorPage/g).length > 1 ? "false" : "true");
+  }),
+  "/search_pinterest": (req, res) => fetchText("https://www.pinterest.com/", req, res, (response) => {
+    res.send(new RegExp(`user not found`, "gi").test(response) ? "false" : "true");
+  }),
+  "/search_pornhub": (req, res) => fetchStatus("https://www.pornhub.com/users/", req, res),
+  "/search_reddit": (req, res) => fetchText("https://www.reddit.com/user/", req, res, (response) => {
+    res.send(new RegExp(`Sorry, nobody on Reddit goes by that name.`, "gi").test(response) ? "false" : "true");
+  }),
+  "/search_snapchat": (req, res) => fetchStatus("https://www.snapchat.com/add/", req, res),
+  "/search_spotify": (req, res) => fetchStatus("https://open.spotify.com/user/", req, res),
+  "/search_telegram": (req, res) => fetchText("https://t.me/", req, res, (response) => {
+    res.send(new RegExp(`tgme_page_title`, "gi").test(response) ? "true" : "false");
+  }),
+  "/search_tiktok": (req, res) => fetchText("https://www.tiktok.com/@", req, res, (response) => {
+    res.send(new RegExp(`"uniqueId":"${req.query.username}"`, "gi").test(response) ? "true" : "false");
+  }),
+  "/search_twitch": (req, res) => fetchText("https://m.twitch.tv/", req, res, (response) => {
+    res.send(new RegExp(`profile_image`, "gi").test(response) ? "true" : "false");
+  }),
+  "/search_twitter": (req, res) => fetchText("https://x.com/", req, res, (response) => {
+    res.send("false"); // Implement manual redirection and cookie setting
+  }),
+  "/search_vimeo": (req, res) => fetchStatus("https://vimeo.com/", req, res),
+  "/search_wikipedia": (req, res) => fetchText("https://en.wikipedia.org/wiki/User:", req, res, (response) => {
+    res.send(new RegExp(`is not registered on this wiki`, "gim").test(response) || new RegExp(`Wikipedia does not have a`, "gim").test(response) ? "false" : "true");
+  }),
+  "/search_xvideos": (req, res) => fetchStatus("https://www.xvideos.com/profiles/", req, res),
+  "/search_youtube": (req, res) => fetchStatus("https://www.youtube.com/@", req, res),
+};
+
+for (const [path, handler] of Object.entries(searchHandlers)) {
+  appGet(path, handler);
+}
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
-});
+})
