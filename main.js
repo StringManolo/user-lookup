@@ -124,6 +124,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_tumblr": `https://tumblr.com/${username}`,
     "search_twitch": `https://twitch.tv/${username}`,
     "search_twitter": `https://twitter.com/${username}`,
+    "search_vice": `https://vice.com/en/contributor/${username}`,
     "search_vimeo": `https://vimeo.com/${username}`,
     "search_wikipedia": `https://wikipedia.org/wiki/User:${username}`,
     "search_wordpress": `https://wordpress.org/support/users/${username}`,
@@ -173,6 +174,7 @@ app.get("/search", async (req, res) => {
     "search_tumblr",
     "search_twitch",
     "search_twitter",
+    "search_vice",
     "search_vimeo",
     "search_wikipedia",
     "search_wordpress",
@@ -402,6 +404,7 @@ const searchHandlers = {
   "/search_twitter": (req, res) => fetchText("https://x.com/", req, res, (response) => {
     res.send("false"); // Implement manual redirection and cookie setting
   }),
+  "/search_vice": (req, res) => fetchStatus("https://www.vice.com/en/contributor/", req, res),
   "/search_vimeo": (req, res) => fetchStatus("https://vimeo.com/", req, res),
   "/search_wikipedia": (req, res) => fetchText("https://en.wikipedia.org/wiki/User:", req, res, (response) => {
     res.send(new RegExp(`is not registered on this wiki`, "gim").test(response) || new RegExp(`Wikipedia does not have a`, "gim").test(response) ? "false" : "true");
