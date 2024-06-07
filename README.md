@@ -43,7 +43,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 
 ##### Available Services
 
-* 32 Available Services
+* 33 Available Services
 
 - aboutme
 - allrecipes
@@ -55,6 +55,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - cnn
 - dailymotion
 - discussions_apple
+- douban
 - ebay
 - github
 - imdb
@@ -79,4 +80,4 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - xvideos
 - youtube
 
-* Services may become unavailable at any time if breaking changes are made by the developers of the target service. 
+* Services may become unavailable at any time if breaking changes are made by the developers of the target service. Open an issue if the case occurs and we will update the service. 

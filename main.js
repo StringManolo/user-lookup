@@ -108,6 +108,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_coursera": `https://coursera.org/instructor/${username}`,
     "search_dailymotion": `https://dailymotion.com/${username}`,
     "search_discussions_apple": `https://discussions.apple.com/profile/${username}`,
+    "search_douban": `https://douban.com/people/${username}`,
     "search_ebay": `https://ebay.com/usr/${username}`,
     "search_github": `https://github.com/${username}`,
     "search_imdb": `https://imdb.com/user/${username}`,
@@ -159,6 +160,7 @@ app.get("/search", async (req, res) => {
     "search_coursera",
     "search_dailymotion",
     "search_discussions_apple",
+    "search_douban",
     "search_ebay",
     "search_github",
     "search_imdb",
@@ -359,6 +361,7 @@ const searchHandlers = {
   "/search_discussions_apple": (req, res) => fetchText("https://discussions.apple.com/profile/", req, res, (response) => {
     res.send(new RegExp(`user-profile-name`, "gi").test(response) ? "true" : "false");
   }),
+  "/search_douban": (req, res) => fetchStatus("https://www.douban.com/people/", req, res),
   "/search_ebay": (req, res) => fetchText("https://www.ebay.com/usr/", req, res, (response) => {
     res.send(new RegExp(`Member since`, "gi").test(response) ? "true" : "false");
   }),
@@ -413,7 +416,8 @@ const searchHandlers = {
   "/search_wordpress": (req, res) => fetchStatus("https://wordpress.org/support/users/", req, res),
   "/search_xvideos": (req, res) => fetchStatus("https://www.xvideos.com/profiles/", req, res),
   "/search_youtube": (req, res) => fetchStatus("https://www.youtube.com/@", req, res),
-};
+}
+
 
 for (const [path, handler] of Object.entries(searchHandlers)) {
   appGet(path, handler);
