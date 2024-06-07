@@ -114,6 +114,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_dribbble": `https://dribbble.com/${username}`,
     "search_ebay": `https://ebay.com/usr/${username}`,
     "search_flickr": `https://flickr.com/people/${username}`,
+    "search_gaana": `https://gaana.com/artist/${username}`,
     "search_github": `https://github.com/${username}`,
     "search_goodreads": `https://goodreads.com/${username}`,
     "search_imdb": `https://imdb.com/user/${username}`,
@@ -175,6 +176,7 @@ app.get("/search", async (req, res) => {
     "search_dribbble",
     "search_ebay",
     "search_flickr",
+    "search_gaana",
     "search_github",
     "search_goodreads",
     "search_imdb",
@@ -396,6 +398,7 @@ const searchHandlers = {
     res.send(new RegExp(`Member since`, "gi").test(response) ? "true" : "false");
   }),
   "/search_flickr": (req, res) => fetchStatus("https://www.flickr.com/people/", req, res),
+  "/search_gaana": (req, res) => fetchStatus("https://gaana.com/artist/", req, res),
   "/search_github": (req, res) => fetchStatus("https://github.com/", req, res),
   "/search_goodreads": (req, res) => fetchStatusWithCallback("https://www.goodreads.com/", req, res, (response) => {
     res.send(response.status === 200 && response.redirected === true ? "true" : "false");
