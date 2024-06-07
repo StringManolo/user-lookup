@@ -120,6 +120,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_goodreads": `https://goodreads.com/${username}`,
     "search_imdb": `https://imdb.com/user/${username}`,
     "search_instagram": `https://instagram.com/${username}`,
+    "search_kompasiana": `https://kompasiana.com/${username}`,
     "search_lastfm": `https://last.fm/user/${username}`,
     "search_medium": `https://medium.com/@${username}`,
     "search_paypal": `https://paypal.com/paypalme/${username}`,
@@ -183,6 +184,7 @@ app.get("/search", async (req, res) => {
     "search_goodreads",
     "search_imdb",
     "search_instagram",
+    "search_kompasiana",
     "search_lastfm",
     "search_medium",
     "search_paypal",
@@ -419,6 +421,7 @@ const searchHandlers = {
   "/search_instagram": (req, res) => fetchText("https://www.instagram.com/", req, res, (response) => {
     res.send(response.match(/httpErrorPage/g).length > 1 ? "false" : "true");
   }),
+  "/search_kompasiana": (req, res) => fetchStatus("https://www.kompasiana.com/", req, res),
   "/search_lastfm": (req, res) => fetchStatus("https://www.last.fm/user/", req, res),
   "/search_medium": (req, res) => fetchText("https://medium.com/@", req, res, (response) => {
     res.send(new RegExp(`followers`, "gi").test(response) ? "true" : "false");
