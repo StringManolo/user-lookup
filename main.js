@@ -106,6 +106,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_cnet": `https://cnet.com/profiles/${username}`,
     "search_cnn": `https://edition.cnn.com/profiles/${username}`,
     "search_coursera": `https://coursera.org/instructor/${username}`,
+    "search_dailymotion": `https://dailymotion.com/${username}`,
     "search_discussions_apple": `https://discussions.apple.com/profile/${username}`,
     "search_ebay": `https://ebay.com/usr/${username}`,
     "search_github": `https://github.com/${username}`,
@@ -156,6 +157,7 @@ app.get("/search", async (req, res) => {
     "search_cnet",
     "search_cnn",
     "search_coursera",
+    "search_dailymotion",
     "search_discussions_apple",
     "search_ebay",
     "search_github",
@@ -353,6 +355,7 @@ const searchHandlers = {
   "/search_cnet": (req, res) => fetchStatus("https://www.cnet.com/profiles/", req, res),
   "/search_cnn": (req, res) => fetchStatus("https://edition.cnn.com/profiles/", req, res),
   "/search_coursera": (req, res) => fetchStatus("https://www.coursera.org/instructor/", req, res),
+  "/search_dailymotion": (req, res) => fetchStatus("https://www.dailymotion.com/", req, res),
   "/search_discussions_apple": (req, res) => fetchText("https://discussions.apple.com/profile/", req, res, (response) => {
     res.send(new RegExp(`user-profile-name`, "gi").test(response) ? "true" : "false");
   }),
