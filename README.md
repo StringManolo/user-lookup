@@ -43,7 +43,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 
 ##### Available Services
 
-* 33 Available Services
+* 35 Available Services
 
 - aboutme
 - allrecipes
@@ -70,6 +70,8 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - spotify
 - telegram
 - theguardian
+- tieba
+- tieba
 - tiktok
 - tumblr
 - twitch

@@ -123,6 +123,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_spotify": `https://open.spotify.com/user/${username}`,
     "search_telegram": `https://t.me/${username}`,
     "search_theguardian": `https://theguardian.com/profile/${username}`,
+    "search_tieba": `https://tieba.baidu.com/home/main?un=${username}`,
     "search_tiktok": `https://tiktok.com/@${username}`,
     "search_tumblr": `https://tumblr.com/${username}`,
     "search_twitch": `https://twitch.tv/${username}`,
@@ -175,6 +176,7 @@ app.get("/search", async (req, res) => {
     "search_spotify",
     "search_telegram",
     "search_theguardian",
+    "search_tieba",
     "search_tiktok",
     "search_tumblr",
     "search_twitch",
@@ -330,11 +332,20 @@ const fetchStatus = async (url, req, res) => {
   }
 };
 
+const fetchStatusWithCallback = async (url, req, res, callback) => {
+  try {
+    const response = await fetch(`${url}${req.query.username}`);
+    callback(response);
+  } catch (error) {
+    res.send("false");
+  }
+};
+
 const fetchText = async (url, req, res, callback) => {
   try {
     const response = await fetch(`${url}${req.query.username}`);
     const text = await response.text();
-    callback(text);
+    callback(text); 
   } catch (error) {
     res.send("false");
   }
@@ -401,6 +412,9 @@ const searchHandlers = {
     res.send(new RegExp(`tgme_page_title`, "gi").test(response) ? "true" : "false");
   }),
   "/search_theguardian": (req, res) => fetchStatus("https://www.theguardian.com/profile/", req, res),
+  "/search_tieba": (req, res) => fetchStatusWithCallback("https://tieba.baidu.com/home/main?un=", req, res, (responseObject) => {
+    res.send(responseObject.status === 200 && responseObject.redirected === false ? "true" : "false");
+  }),
   "/search_tiktok": (req, res) => fetchText("https://www.tiktok.com/@", req, res, (response) => {
     res.send(new RegExp(`"uniqueId":"${req.query.username}"`, "gi").test(response) ? "true" : "false");
   }),
@@ -415,7 +429,7 @@ const searchHandlers = {
   }),
   "/search_wordpress": (req, res) => fetchStatus("https://wordpress.org/support/users/", req, res),
   "/search_xvideos": (req, res) => fetchStatus("https://www.xvideos.com/profiles/", req, res),
-  "/search_youtube": (req, res) => fetchStatus("https://www.youtube.com/@", req, res),
+  "/search_youtube": (req, res) => fetchStatus("https://www.youtube.com/@", req, res, null),
 }
 
 
