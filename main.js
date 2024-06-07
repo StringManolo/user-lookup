@@ -119,6 +119,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_gaana": `https://gaana.com/artist/${username}`,
     "search_github": `https://github.com/${username}`,
     "search_goodreads": `https://goodreads.com/${username}`,
+    "search_habr": `https://habr.com/en/users/${username}`,
     "search_imdb": `https://imdb.com/user/${username}`,
     "search_instagram": `https://instagram.com/${username}`,
     "search_kompasiana": `https://kompasiana.com/${username}`,
@@ -187,6 +188,7 @@ app.get("/search", async (req, res) => {
     "search_gaana",
     "search_github",
     "search_goodreads",
+    "search_habr",
     "search_imdb",
     "search_instagram",
     "search_kompasiana",
@@ -417,6 +419,7 @@ const searchHandlers = {
   "/search_goodreads": (req, res) => fetchStatusWithCallback("https://www.goodreads.com/", req, res, (response) => {
     res.send(response.status === 200 && response.redirected === true ? "true" : "false");
   }),
+  "/search_habr": (req, res) => fetchStatus("https://habr.com/en/users/", req, res),
   "/search_imdb": async (req, res) => {
     const username = req.query.username;
     try {
