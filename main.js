@@ -110,6 +110,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_discussions_apple": `https://discussions.apple.com/profile/${username}`,
     "search_douban": `https://douban.com/people/${username}`,
     "search_ebay": `https://ebay.com/usr/${username}`,
+    "search_flickr": `https://flickr.com/people/${username}`,
     "search_github": `https://github.com/${username}`,
     "search_imdb": `https://imdb.com/user/${username}`,
     "search_instagram": `https://instagram.com/${username}`,
@@ -120,6 +121,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_quora": `https://quora.com/profile/${username}`,
     "search_reddit": `https://reddit.com/user/${username}`,
     "search_snapchat": `https://snapchat.com/add/${username}`,
+    "search_soundcloud": `https://soundcloud.com/${username}`,
     "search_spotify": `https://open.spotify.com/user/${username}`,
     "search_telegram": `https://t.me/${username}`,
     "search_theguardian": `https://theguardian.com/profile/${username}`,
@@ -163,6 +165,7 @@ app.get("/search", async (req, res) => {
     "search_discussions_apple",
     "search_douban",
     "search_ebay",
+    "search_flickr",
     "search_github",
     "search_imdb",
     "search_instagram",
@@ -173,6 +176,7 @@ app.get("/search", async (req, res) => {
     "search_quora",
     "search_reddit",
     "search_snapchat",
+    "search_soundcloud",
     "search_spotify",
     "search_telegram",
     "search_theguardian",
@@ -376,6 +380,7 @@ const searchHandlers = {
   "/search_ebay": (req, res) => fetchText("https://www.ebay.com/usr/", req, res, (response) => {
     res.send(new RegExp(`Member since`, "gi").test(response) ? "true" : "false");
   }),
+  "/search_flickr": (req, res) => fetchStatus("https://www.flickr.com/people/", req, res),
   "/search_github": (req, res) => fetchStatus("https://github.com/", req, res),
   "/search_imdb": async (req, res) => {
     const username = req.query.username;
@@ -407,6 +412,7 @@ const searchHandlers = {
     res.send(new RegExp(`Sorry, nobody on Reddit goes by that name.`, "gi").test(response) ? "false" : "true");
   }),
   "/search_snapchat": (req, res) => fetchStatus("https://www.snapchat.com/add/", req, res),
+  "/search_soundcloud": (req, res) => fetchStatus("https://soundcloud.com/", req, res),
   "/search_spotify": (req, res) => fetchStatus("https://open.spotify.com/user/", req, res),
   "/search_telegram": (req, res) => fetchText("https://t.me/", req, res, (response) => {
     res.send(new RegExp(`tgme_page_title`, "gi").test(response) ? "true" : "false");

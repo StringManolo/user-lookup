@@ -1,5 +1,6 @@
 - Refactor code
 - Add More Services
+- Add Error Handling (ex: unexpected network errors)
 - Add Tests
 - Add Public Server
 - Host Standalone Webpage in githubpages pointing to Public Server (and allow user to change server url)
