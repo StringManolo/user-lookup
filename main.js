@@ -121,10 +121,10 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_snapchat": `https://snapchat.com/add/${username}`,
     "search_spotify": `https://open.spotify.com/user/${username}`,
     "search_telegram": `https://t.me/${username}`,
+    "search_theguardian": `https://theguardian.com/profile/${username}`,
     "search_tiktok": `https://tiktok.com/@${username}`,
     "search_tumblr": `https://tumblr.com/${username}`,
     "search_twitch": `https://twitch.tv/${username}`,
-    "search_twitter": `https://twitter.com/${username}`,
     "search_vice": `https://vice.com/en/contributor/${username}`,
     "search_vimeo": `https://vimeo.com/${username}`,
     "search_wikipedia": `https://wikipedia.org/wiki/User:${username}`,
@@ -172,10 +172,10 @@ app.get("/search", async (req, res) => {
     "search_snapchat",
     "search_spotify",
     "search_telegram",
+    "search_theguardian",
     "search_tiktok",
     "search_tumblr",
     "search_twitch",
-    "search_twitter",
     "search_vice",
     "search_vimeo",
     "search_wikipedia",
@@ -397,15 +397,13 @@ const searchHandlers = {
   "/search_telegram": (req, res) => fetchText("https://t.me/", req, res, (response) => {
     res.send(new RegExp(`tgme_page_title`, "gi").test(response) ? "true" : "false");
   }),
+  "/search_theguardian": (req, res) => fetchStatus("https://www.theguardian.com/profile/", req, res),
   "/search_tiktok": (req, res) => fetchText("https://www.tiktok.com/@", req, res, (response) => {
     res.send(new RegExp(`"uniqueId":"${req.query.username}"`, "gi").test(response) ? "true" : "false");
   }),
   "/search_tumblr": (req, res) => fetchStatus("https://www.tumblr.com/", req, res),
   "/search_twitch": (req, res) => fetchText("https://m.twitch.tv/", req, res, (response) => {
     res.send(new RegExp(`profile_image`, "gi").test(response) ? "true" : "false");
-  }),
-  "/search_twitter": (req, res) => fetchText("https://x.com/", req, res, (response) => {
-    res.send("false"); // Implement manual redirection and cookie setting
   }),
   "/search_vice": (req, res) => fetchStatus("https://www.vice.com/en/contributor/", req, res),
   "/search_vimeo": (req, res) => fetchStatus("https://vimeo.com/", req, res),
