@@ -6,7 +6,7 @@ const port = 3000;
 
 const host = `http://localhost:${port}`;
 
-app.get("/user-lookup", (req, res) => {
+app.get(["/", "/user-lookup"], (req, res) => {
   res.send(`
 <!DOCTYPE html>
 <html lang="en">
