@@ -121,6 +121,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_twitter": `https://twitter.com/${username}`,
     "search_vimeo": `https://vimeo.com/${username}`,
     "search_wikipedia": `https://wikipedia.org/wiki/User:${username}`,
+    "search_wordpress": `https://wordpress.org/support/users/${username}`,
     "search_xvideos": `https://xvideos.com/profiles/${username}`,
     "search_youtube": `https://youtube.com/@${username}`
   };
@@ -164,6 +165,7 @@ app.get("/search", async (req, res) => {
     "search_twitter",
     "search_vimeo",
     "search_wikipedia",
+    "search_wordpress",
     "search_xvideos",
     "search_youtube"
   ];
@@ -383,6 +385,7 @@ const searchHandlers = {
   "/search_wikipedia": (req, res) => fetchText("https://en.wikipedia.org/wiki/User:", req, res, (response) => {
     res.send(new RegExp(`is not registered on this wiki`, "gim").test(response) || new RegExp(`Wikipedia does not have a`, "gim").test(response) ? "false" : "true");
   }),
+  "/search_wordpress": (req, res) => fetchStatus("https://wordpress.org/support/users/", req, res),
   "/search_xvideos": (req, res) => fetchStatus("https://www.xvideos.com/profiles/", req, res),
   "/search_youtube": (req, res) => fetchStatus("https://www.youtube.com/@", req, res),
 };

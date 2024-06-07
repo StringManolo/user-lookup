@@ -65,6 +65,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - twitter (not yet)
 - vimeo
 - wikipedia
+- wordpress
 - xvideos
 - youtube
 
