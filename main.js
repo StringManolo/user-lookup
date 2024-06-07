@@ -109,6 +109,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_github": `https://github.com/${username}`,
     "search_imdb": `https://imdb.com/user/${username}`,
     "search_instagram": `https://instagram.com/${username}`,
+    "search_medium": `https://medium.com/@${username}`,
     "search_paypal": `https://paypal.com/paypalme/${username}`,
     "search_pinterest": `https://pinterest.com/${username}`,
     "search_pornhub": `https://pornhub.com/users/${username}`,
@@ -155,6 +156,7 @@ app.get("/search", async (req, res) => {
     "search_github",
     "search_imdb",
     "search_instagram",
+    "search_medium",
     "search_paypal",
     "search_pinterest",
     "search_pornhub",
@@ -362,6 +364,9 @@ const searchHandlers = {
   },
   "/search_instagram": (req, res) => fetchText("https://www.instagram.com/", req, res, (response) => {
     res.send(response.match(/httpErrorPage/g).length > 1 ? "false" : "true");
+  }),
+  "/search_medium": (req, res) => fetchText("https://medium.com/@", req, res, (response) => {
+    res.send(new RegExp(`followers`, "gi").test(response) ? "true" : "false");
   }),
   "/search_paypal": (req, res) => fetchText("https://www.paypal.com/paypalme/", req, res, (response) => {
     res.send(new RegExp(`"paypalmeSlugName":"${req.query.username}"`, "gi").test(response) ? "true" : "false");
