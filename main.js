@@ -123,6 +123,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_paypal": `https://paypal.com/paypalme/${username}`,
     "search_pinterest": `https://pinterest.com/${username}`,
     "search_pornhub": `https://pornhub.com/users/${username}`,
+    "search_producthunt": `https://producthunt.com/@${username}`,
     "search_quora": `https://quora.com/profile/${username}`,
     "search_reddit": `https://reddit.com/user/${username}`,
     "search_snapchat": `https://snapchat.com/add/${username}`,
@@ -183,6 +184,7 @@ app.get("/search", async (req, res) => {
     "search_paypal",
     "search_pinterest",
     "search_pornhub",
+    "search_producthunt",
     "search_quora",
     "search_reddit",
     "search_snapchat",
@@ -422,6 +424,7 @@ const searchHandlers = {
     res.send(new RegExp(`user not found`, "gi").test(response) ? "false" : "true");
   }),
   "/search_pornhub": (req, res) => fetchStatus("https://www.pornhub.com/users/", req, res),
+  "/search_producthunt": (req, res) => fetchStatus("https://www.producthunt.com/@", req, res),
   "/search_quora": (req, res) => fetchText("https://www.quora.com/profile/", req, res, (response) => {
     res.send(new RegExp(`numFollowers`, "gi").test(response) ? "true" : "false");
   }),
