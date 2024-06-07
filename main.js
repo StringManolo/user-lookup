@@ -109,6 +109,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_codecademy": `https://discuss.codecademy.com/u/${username}`,
     "search_coursera": `https://coursera.org/instructor/${username}`,
     "search_dailymotion": `https://dailymotion.com/${username}`,
+    "search_deviantart": `https://deviantart.com/${username}`,
     "search_discussions_apple": `https://discussions.apple.com/profile/${username}`,
     "search_douban": `https://douban.com/people/${username}`,
     "search_dribbble": `https://dribbble.com/${username}`,
@@ -171,6 +172,7 @@ app.get("/search", async (req, res) => {
     "search_codecademy",
     "search_coursera",
     "search_dailymotion",
+    "search_deviantart",
     "search_discussions_apple",
     "search_douban",
     "search_dribbble",
@@ -389,6 +391,7 @@ const searchHandlers = {
   "/search_codecademy": (req, res) => fetchStatus("https://discuss.codecademy.com/u/", req, res),
   "/search_coursera": (req, res) => fetchStatus("https://www.coursera.org/instructor/", req, res),
   "/search_dailymotion": (req, res) => fetchStatus("https://www.dailymotion.com/", req, res),
+  "/search_deviantart": (req, res) => fetchStatus("https://www.deviantart.com/", req, res),
   "/search_discussions_apple": (req, res) => fetchText("https://discussions.apple.com/profile/", req, res, (response) => {
     res.send(new RegExp(`user-profile-name`, "gi").test(response) ? "true" : "false");
   }),
