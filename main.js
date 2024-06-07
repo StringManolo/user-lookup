@@ -101,6 +101,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_aboutme": `https://about.me/${username}`,
     "search_allrecipes": `https://allrecipes.com/cook/${username}/`,
     "search_anime-planet": `https://anime-planet.com/users/${username}`,
+    "search_behance": `https://behance.net/${username}`,
     "search_boardgamegeek": `https://boardgamegeek.com/user/${username}`,
     "search_buzzfeed": `https://buzzfeed.com/${username}`,
     "search_cnet": `https://cnet.com/profiles/${username}`,
@@ -109,6 +110,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_dailymotion": `https://dailymotion.com/${username}`,
     "search_discussions_apple": `https://discussions.apple.com/profile/${username}`,
     "search_douban": `https://douban.com/people/${username}`,
+    "search_dribbble": `https://dribbble.com/${username}`,
     "search_ebay": `https://ebay.com/usr/${username}`,
     "search_flickr": `https://flickr.com/people/${username}`,
     "search_github": `https://github.com/${username}`,
@@ -156,6 +158,7 @@ app.get("/search", async (req, res) => {
     "search_aboutme",
     "search_allrecipes",
     "search_anime-planet",
+    "search_behance",
     "search_boardgamegeek",
     "search_buzzfeed",
     "search_cnet",
@@ -164,6 +167,7 @@ app.get("/search", async (req, res) => {
     "search_dailymotion",
     "search_discussions_apple",
     "search_douban",
+    "search_dribbble",
     "search_ebay",
     "search_flickr",
     "search_github",
@@ -363,6 +367,7 @@ const searchHandlers = {
   "/search_anime-planet": (req, res) => fetchText("https://www.anime-planet.com/users/", req, res, (response) => {
     res.send(new RegExp(`<a\\s+href="/users/${req.query.username}/following">`, "gi").test(response) ? "true" : "false");
   }),
+  "/search_behance": (req, res) => fetchStatus("https://www.behance.net/", req, res),
   "/search_boardgamegeek": (req, res) => fetchText("https://boardgamegeek.com/user/", req, res, (response) => {
     res.send(new RegExp(`Error: User does not exist`, "gi").test(response) ? "false" : "true");
   }),
@@ -377,6 +382,7 @@ const searchHandlers = {
     res.send(new RegExp(`user-profile-name`, "gi").test(response) ? "true" : "false");
   }),
   "/search_douban": (req, res) => fetchStatus("https://www.douban.com/people/", req, res),
+  "/search_dribbble": (req, res) => fetchStatus("https://dribbble.com/", req, res),
   "/search_ebay": (req, res) => fetchText("https://www.ebay.com/usr/", req, res, (response) => {
     res.send(new RegExp(`Member since`, "gi").test(response) ? "true" : "false");
   }),
