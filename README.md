@@ -42,6 +42,9 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 * Api returns true when the account exists in the service, and false when it doesn't
 
 ##### Available Services
+
+* 25 Available Services
+
 - aboutme
 - allrecipes
 - anime-planet
