@@ -123,6 +123,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_instagram": `https://instagram.com/${username}`,
     "search_kompasiana": `https://kompasiana.com/${username}`,
     "search_lastfm": `https://last.fm/user/${username}`,
+    "search_livejournal": `https://livejournal.com/users/${username}`,
     "search_medium": `https://medium.com/@${username}`,
     "search_mercadolivre": `https://mercadolivre.com.br/perfil/${username}`,
     "search_pakwheels": `https://pakwheels.com/forums/users/${username}`,
@@ -190,6 +191,7 @@ app.get("/search", async (req, res) => {
     "search_instagram",
     "search_kompasiana",
     "search_lastfm",
+    "search_livejournal",
     "search_medium",
     "search_mercadolivre",
     "search_pakwheels",
@@ -430,6 +432,7 @@ const searchHandlers = {
   }),
   "/search_kompasiana": (req, res) => fetchStatus("https://www.kompasiana.com/", req, res),
   "/search_lastfm": (req, res) => fetchStatus("https://www.last.fm/user/", req, res),
+  "/search_livejournal": (req, res) => fetchStatus("https://www.livejournal.com/users/", req, res),
   "/search_medium": (req, res) => fetchText("https://medium.com/@", req, res, (response) => {
     res.send(new RegExp(`followers`, "gi").test(response) ? "true" : "false");
   }),
