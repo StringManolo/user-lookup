@@ -8,6 +8,11 @@ Check if username exists in many services like Instagram, TikTok, Paypal, Wikipe
 ### Preview
 ![Preview](https://raw.githubusercontent.com/StringManolo/user-lookup/378c42812db7c84d6c81394259fa9516d67f8b68/images/user_lookup_image_1.jpg)
 
+### Live
+[Live Demo](https://user-lookup.glitch.me/) 
+
+* This demo is running on a free service, so it may take time for "wake up" or answer. For best performance run it locally on your machine. Or run it on another server.
+
 ### Usage
 
 ##### Download the Software
