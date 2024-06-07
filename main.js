@@ -115,6 +115,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_ebay": `https://ebay.com/usr/${username}`,
     "search_flickr": `https://flickr.com/people/${username}`,
     "search_github": `https://github.com/${username}`,
+    "search_goodreads": `https://goodreads.com/${username}`,
     "search_imdb": `https://imdb.com/user/${username}`,
     "search_instagram": `https://instagram.com/${username}`,
     "search_medium": `https://medium.com/@${username}`,
@@ -173,6 +174,7 @@ app.get("/search", async (req, res) => {
     "search_ebay",
     "search_flickr",
     "search_github",
+    "search_goodreads",
     "search_imdb",
     "search_instagram",
     "search_medium",
@@ -391,6 +393,9 @@ const searchHandlers = {
   }),
   "/search_flickr": (req, res) => fetchStatus("https://www.flickr.com/people/", req, res),
   "/search_github": (req, res) => fetchStatus("https://github.com/", req, res),
+  "/search_goodreads": (req, res) => fetchStatusWithCallback("https://www.goodreads.com/", req, res, (response) => {
+    res.send(response.status === 200 && response.redirected === true ? "true" : "false");
+  }),
   "/search_imdb": async (req, res) => {
     const username = req.query.username;
     try {

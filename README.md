@@ -43,7 +43,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 
 ##### Available Services
 
-* 39 Available Services
+* 40 Available Services
 
 - aboutme
 - allrecipes
@@ -62,6 +62,7 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 - ebay
 - flickr
 - github
+- goodreads
 - imdb
 - instagram
 - medium
