@@ -123,6 +123,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_kompasiana": `https://kompasiana.com/${username}`,
     "search_lastfm": `https://last.fm/user/${username}`,
     "search_medium": `https://medium.com/@${username}`,
+    "search_pakwheels": `https://pakwheels.com/forums/users/${username}`,
     "search_paypal": `https://paypal.com/paypalme/${username}`,
     "search_pinterest": `https://pinterest.com/${username}`,
     "search_pornhub": `https://pornhub.com/users/${username}`,
@@ -187,6 +188,7 @@ app.get("/search", async (req, res) => {
     "search_kompasiana",
     "search_lastfm",
     "search_medium",
+    "search_pakwheels",
     "search_paypal",
     "search_pinterest",
     "search_pornhub",
@@ -426,6 +428,7 @@ const searchHandlers = {
   "/search_medium": (req, res) => fetchText("https://medium.com/@", req, res, (response) => {
     res.send(new RegExp(`followers`, "gi").test(response) ? "true" : "false");
   }),
+  "/search_pakwheels": (req, res) => fetchStatus("https://www.pakwheels.com/forums/users/", req, res),
   "/search_paypal": (req, res) => fetchText("https://www.paypal.com/paypalme/", req, res, (response) => {
     res.send(new RegExp(`"paypalmeSlugName":"${req.query.username}"`, "gi").test(response) ? "true" : "false");
   }),
