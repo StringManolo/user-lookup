@@ -111,6 +111,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_instagram": `https://instagram.com/${username}`,
     "search_pinterest": `https://pinterest.com/${username}`,
     "search_pornhub": `https://pornhub.com/users/${username}`,
+    "search_quora": `https://quora.com/profile/${username}`,
     "search_reddit": `https://reddit.com/user/${username}`,
     "search_snapchat": `https://snapchat.com/add/${username}`,
     "search_spotify": `https://open.spotify.com/user/${username}`,
@@ -155,6 +156,7 @@ app.get("/search", async (req, res) => {
     "search_instagram",
     "search_pinterest",
     "search_pornhub",
+    "search_quora",
     "search_reddit",
     "search_snapchat",
     "search_spotify",
@@ -363,6 +365,9 @@ const searchHandlers = {
     res.send(new RegExp(`user not found`, "gi").test(response) ? "false" : "true");
   }),
   "/search_pornhub": (req, res) => fetchStatus("https://www.pornhub.com/users/", req, res),
+  "/search_quora": (req, res) => fetchText("https://www.quora.com/profile/", req, res, (response) => {
+    res.send(new RegExp(`numFollowers`, "gi").test(response) ? "true" : "false");
+  }),
   "/search_reddit": (req, res) => fetchText("https://www.reddit.com/user/", req, res, (response) => {
     res.send(new RegExp(`Sorry, nobody on Reddit goes by that name.`, "gi").test(response) ? "false" : "true");
   }),
