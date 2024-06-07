@@ -103,6 +103,7 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_anime-planet": `https://anime-planet.com/users/${username}`,
     "search_boardgamegeek": `https://boardgamegeek.com/user/${username}`,
     "search_buzzfeed": `https://buzzfeed.com/${username}`,
+    "search_cnet": `https://cnet.com/profiles/${username}`,
     "search_cnn": `https://edition.cnn.com/profiles/${username}`,
     "search_coursera": `https://coursera.org/instructor/${username}`,
     "search_discussions_apple": `https://discussions.apple.com/profile/${username}`,
@@ -151,6 +152,7 @@ app.get("/search", async (req, res) => {
     "search_anime-planet",
     "search_boardgamegeek",
     "search_buzzfeed",
+    "search_cnet",
     "search_cnn",
     "search_coursera",
     "search_discussions_apple",
@@ -346,6 +348,7 @@ const searchHandlers = {
   "/search_buzzfeed": (req, res) => fetchText("https://www.buzzfeed.com/", req, res, (response) => {
     res.send(new RegExp(`joined`, "gi").test(response) && new RegExp(`trophies`, "gi").test(response) ? "true" : "false");
   }),
+  "/search_cnet": (req, res) => fetchStatus("https://www.cnet.com/profiles/", req, res),
   "/search_cnn": (req, res) => fetchStatus("https://edition.cnn.com/profiles/", req, res),
   "/search_coursera": (req, res) => fetchStatus("https://www.coursera.org/instructor/", req, res),
   "/search_discussions_apple": (req, res) => fetchText("https://discussions.apple.com/profile/", req, res, (response) => {
