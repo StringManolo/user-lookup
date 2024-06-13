@@ -46,6 +46,15 @@ Where __x__ is the service you want to use, and __y__ is the username you want t
 
 * Api returns true when the account exists in the service, and false when it doesn't
 
+### CLI
+You can use the next command in Linux terminal
+```bash
+./userlookup.sh stringmanolo urls.txt
+```
+
+* This generates a list of urls on the specified file.
+
+
 ##### Available Services
 
 * 50 Available Services
