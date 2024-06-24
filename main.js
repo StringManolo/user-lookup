@@ -113,7 +113,6 @@ const createProfileLinks = (username, values, endpoints) => {
     "search_discussions_apple": `https://discussions.apple.com/profile/${username}`,
     "search_douban": `https://douban.com/people/${username}`,
     "search_dribbble": `https://dribbble.com/${username}`,
-    "search_dzen": `https://dzen.ru/${username}`,
     "search_ebay": `https://ebay.com/usr/${username}`,
     "search_flickr": `https://flickr.com/people/${username}`,
     "search_gaana": `https://gaana.com/artist/${username}`,
@@ -182,7 +181,6 @@ app.get("/search", async (req, res) => {
     "search_discussions_apple",
     "search_douban",
     "search_dribbble",
-    "search_dzen",
     "search_ebay",
     "search_flickr",
     "search_gaana",
@@ -409,7 +407,6 @@ const searchHandlers = {
   }),
   "/search_douban": (req, res) => fetchStatus("https://www.douban.com/people/", req, res),
   "/search_dribbble": (req, res) => fetchStatus("https://dribbble.com/", req, res),
-  "/search_dzen": (req, res) => fetchStatus("https://dzen.ru/", req, res),
   "/search_ebay": (req, res) => fetchText("https://www.ebay.com/usr/", req, res, (response) => {
     res.send(new RegExp(`Member since`, "gi").test(response) ? "true" : "false");
   }),

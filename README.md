@@ -57,7 +57,7 @@ You can use the next command in Linux terminal
 
 ##### Available Services
 
-* 50 Available Services
+* 49 Available Services
 
 - aboutme
 - allrecipes
@@ -74,7 +74,6 @@ You can use the next command in Linux terminal
 - discussions_apple
 - douban
 - dribbble
-- dzen
 - ebay
 - flickr
 - gaana
